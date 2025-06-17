@@ -1,4 +1,3 @@
-
 export interface Question {
   id: number;
   type: 'multiple-choice' | 'true-false' | 'fill-blank' | 'circuit-analysis';
@@ -56,148 +55,243 @@ export const courseData: Module[] = [
   {
     id: 1,
     title: "Fundamentos da Eletrônica",
-    description: "Conceitos básicos essenciais para entender circuitos eletrônicos",
+    description: "Aprenda os conceitos básicos de eletrônica aplicados aos pedais de guitarra",
     category: "fundamentals",
     difficulty: "beginner",
     prerequisites: [],
-    totalXP: 500,
+    totalXP: 1000,
     pedalProject: {
-      name: "LED Tester",
-      description: "Construa um testador simples com LED para entender corrente e tensão",
-      difficulty: "Muito Fácil"
+      name: "Buffer Básico",
+      description: "Construa seu primeiro circuito: um buffer para guitarra",
+      difficulty: "Iniciante",
+      components: ["Op-amp TL072", "Resistores", "Capacitores", "LED", "Chave 3PDT"]
     },
     lessons: [
       {
-        id: 1,
-        title: "O que é Corrente Elétrica",
-        description: "Entenda o conceito fundamental de corrente elétrica",
+        id: 101,
+        title: "O que é Eletrônica?",
+        description: "Introdução aos conceitos fundamentais da eletrônica",
+        difficulty: "beginner",
         duration: "15 min",
-        difficulty: "beginner",
+        xpReward: 50,
         prerequisites: [],
-        xpReward: 25,
         steps: [
           {
-            id: 1,
             type: "theory",
-            title: "Conceito de Corrente Elétrica",
-            content: "A corrente elétrica é o fluxo ordenado de cargas elétricas através de um condutor. Imagine água fluindo por um cano - a corrente elétrica é similar, mas com elétrons se movendo através de um fio. A unidade de medida da corrente é o Ampère (A), que representa a quantidade de carga que passa por um ponto em um segundo. Em circuitos de pedais de guitarra, geralmente trabalhamos com correntes na ordem de miliampères (mA)."
+            title: "Conceitos Básicos",
+            content: "A eletrônica é a ciência que estuda o comportamento dos elétrons em circuitos. Em pedais de guitarra, manipulamos o sinal elétrico da guitarra para criar diferentes efeitos sonoros."
           },
           {
-            id: 2,
             type: "exercise",
-            title: "Teste seus conhecimentos",
+            title: "Teste de Conhecimento",
             questions: [
               {
-                id: 1,
+                id: 1011,
                 type: "multiple-choice",
-                question: "Qual é a unidade de medida da corrente elétrica?",
-                options: ["Volts (V)", "Ampères (A)", "Ohms (Ω)", "Watts (W)"],
+                question: "O que é um sinal elétrico?",
+                options: ["Uma onda sonora", "Um fluxo de elétrons", "Uma vibração mecânica", "Um campo magnético"],
                 correctAnswer: 1,
-                explanation: "A corrente elétrica é medida em Ampères (A), em homenagem ao físico André-Marie Ampère.",
-                difficulty: "easy"
+                explanation: "Um sinal elétrico é o fluxo controlado de elétrons através de um condutor."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 102,
+        title: "Tensão e Corrente",
+        description: "Entenda os conceitos de tensão (voltagem) e corrente elétrica",
+        difficulty: "beginner",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [101],
+        steps: [
+          {
+            type: "theory",
+            title: "Tensão Elétrica",
+            content: "A tensão é a diferença de potencial elétrico entre dois pontos. É medida em Volts (V). Nos pedais de guitarra, geralmente trabalhamos com tensões de 9V."
+          },
+          {
+            type: "exercise",
+            title: "Exercícios de Tensão",
+            questions: [
+              {
+                id: 1021,
+                type: "multiple-choice",
+                question: "Qual é a unidade de medida da tensão?",
+                options: ["Ampère", "Volt", "Ohm", "Watt"],
+                correctAnswer: 1,
+                explanation: "A tensão é medida em Volts (V), em homenagem ao físico Alessandro Volta."
               },
               {
-                id: 2,
+                id: 1022,
                 type: "true-false",
-                question: "A corrente elétrica é o movimento de elétrons através de um condutor.",
+                question: "A maioria dos pedais de guitarra funciona com 9V",
                 correctAnswer: "true",
-                explanation: "Correto! A corrente elétrica convencional é definida como o fluxo de cargas positivas, mas fisicamente são os elétrons (cargas negativas) que se movem.",
-                difficulty: "easy"
-              },
-              {
-                id: 3,
-                type: "multiple-choice",
-                question: "Em pedais de guitarra, geralmente trabalhamos com correntes na ordem de:",
-                options: ["Ampères", "Miliampères", "Kiloampères", "Microampères"],
-                correctAnswer: 1,
-                explanation: "Pedais de guitarra operam com baixas correntes, tipicamente na ordem de miliampères (mA).",
-                difficulty: "medium"
+                explanation: "Sim, a grande maioria dos pedais utiliza fonte de 9V DC."
               }
             ]
           }
         ]
       },
       {
-        id: 2,
-        title: "Tensão e Diferença de Potencial",
-        description: "Aprenda sobre tensão elétrica e como ela impulsiona a corrente",
-        duration: "18 min",
+        id: 103,
+        title: "Resistência e Lei de Ohm",
+        description: "Aprenda sobre resistência elétrica e a fundamental Lei de Ohm",
         difficulty: "beginner",
-        prerequisites: [1],
-        xpReward: 30,
-        steps: [
-          {
-            id: 1,
-            type: "theory",
-            title: "O que é Tensão Elétrica",
-            content: "A tensão elétrica, também chamada de diferença de potencial, é a 'força' que empurra os elétrons através de um circuito. É como a pressão da água em um cano - quanto maior a pressão, mais forte o fluxo. A tensão é medida em Volts (V) e é a diferença de energia entre dois pontos de um circuito. Nos pedais de guitarra, normalmente usamos 9V de alimentação."
-          },
-          {
-            id: 2,
-            type: "exercise",
-            title: "Exercícios sobre Tensão",
-            questions: [
-              {
-                id: 4,
-                type: "multiple-choice",
-                question: "A tensão elétrica é medida em:",
-                options: ["Ampères", "Volts", "Ohms", "Watts"],
-                correctAnswer: 1,
-                explanation: "A tensão elétrica é medida em Volts (V), em homenagem ao físico Alessandro Volta.",
-                difficulty: "easy"
-              },
-              {
-                id: 5,
-                type: "fill-blank",
-                question: "A tensão é a _____ de potencial entre dois pontos.",
-                correctAnswer: "diferença",
-                explanation: "A tensão é sempre uma diferença de potencial elétrico entre dois pontos de um circuito.",
-                difficulty: "medium"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        id: 3,
-        title: "Lei de Ohm",
-        description: "A lei fundamental que relaciona tensão, corrente e resistência",
         duration: "25 min",
-        difficulty: "beginner",
-        prerequisites: [1, 2],
-        xpReward: 40,
+        xpReward: 70,
+        prerequisites: [102],
         steps: [
           {
-            id: 1,
             type: "theory",
             title: "A Lei de Ohm",
-            content: "A Lei de Ohm é uma das leis mais importantes da eletrônica. Ela estabelece que a corrente (I) em um circuito é diretamente proporcional à tensão (V) e inversamente proporcional à resistência (R). A fórmula é: V = I × R. Esta lei é fundamental para calcular valores em circuitos eletrônicos e é essencial no design de pedais."
+            content: "A Lei de Ohm estabelece que V = I × R, onde V é tensão, I é corrente e R é resistência. Esta é uma das leis mais importantes na eletrônica."
           },
           {
-            id: 2,
             type: "exercise",
-            title: "Cálculos com Lei de Ohm",
+            title: "Calculando com a Lei de Ohm",
             questions: [
               {
-                id: 6,
-                type: "multiple-choice",
-                question: "Se temos 9V e 1kΩ, qual a corrente?",
-                options: ["9mA", "9A", "1mA", "1A"],
-                correctAnswer: 0,
-                explanation: "Usando V = I × R, temos I = V/R = 9V/1000Ω = 0,009A = 9mA",
-                difficulty: "medium"
+                id: 1031,
+                type: "fill-blank",
+                question: "Se temos 9V e uma resistência de 1000Ω, qual é a corrente? (resposta em mA)",
+                correctAnswer: "9",
+                explanation: "I = V/R = 9V/1000Ω = 0.009A = 9mA"
               }
             ]
+          }
+        ]
+      },
+      {
+        id: 104,
+        title: "Capacitores em Pedais",
+        description: "Entenda como os capacitores funcionam em circuitos de guitarra",
+        difficulty: "beginner",
+        duration: "30 min",
+        xpReward: 80,
+        prerequisites: [103],
+        steps: [
+          {
+            type: "theory",
+            title: "O que são Capacitores",
+            content: "Capacitores armazenam energia elétrica temporariamente. Em pedais de guitarra, são usados para filtrar frequências e acoplar sinais."
           },
           {
-            id: 3,
             type: "circuit",
-            title: "Projeto: LED Tester",
+            title: "Circuito com Capacitor",
             circuitData: {
-              components: ["LED", "Resistor 1kΩ", "Bateria 9V", "Fios"],
-              schematic: "led_tester.svg",
-              description: "Circuito simples para testar LEDs e entender a Lei de Ohm na prática",
-              pedalName: "LED Tester"
+              pedalName: "Filtro Passa-Alta",
+              description: "Um simples filtro que deixa passar frequências agudas",
+              components: ["Capacitor 100nF", "Resistor 10kΩ", "Conectores de entrada e saída"]
+            }
+          }
+        ]
+      },
+      {
+        id: 105,
+        title: "Amplificadores Operacionais",
+        description: "Introdução aos op-amps, componentes essenciais em pedais",
+        difficulty: "intermediate",
+        duration: "35 min",
+        xpReward: 90,
+        prerequisites: [104],
+        steps: [
+          {
+            type: "theory",
+            title: "O que é um Op-Amp",
+            content: "Amplificadores operacionais são circuitos integrados que amplificam sinais. O TL072 é muito usado em pedais de guitarra."
+          }
+        ]
+      },
+      {
+        id: 106,
+        title: "Tipos de Sinais de Guitarra",
+        description: "Características do sinal da guitarra elétrica",
+        difficulty: "beginner",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [105],
+        steps: [
+          {
+            type: "theory",
+            title: "Sinal da Guitarra",
+            content: "O sinal da guitarra elétrica é um sinal AC de baixa amplitude, geralmente entre 100mV a 1V pico a pico."
+          }
+        ]
+      },
+      {
+        id: 107,
+        title: "Impedância em Circuitos",
+        description: "Conceito de impedância e casamento de impedâncias",
+        difficulty: "intermediate",
+        duration: "25 min",
+        xpReward: 70,
+        prerequisites: [106],
+        steps: [
+          {
+            type: "theory",
+            title: "Impedância",
+            content: "Impedância é a oposição total ao fluxo de corrente AC. É importante casar impedâncias entre equipamentos."
+          }
+        ]
+      },
+      {
+        id: 108,
+        title: "Fontes de Alimentação",
+        description: "Como funcionam as fontes de 9V para pedais",
+        difficulty: "beginner",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [107],
+        steps: [
+          {
+            type: "theory",
+            title: "Alimentação de Pedais",
+            content: "A maioria dos pedais usa fonte de 9V DC. É importante ter uma fonte estável e com baixo ruído."
+          }
+        ]
+      },
+      {
+        id: 109,
+        title: "Aterramento e Blindagem",
+        description: "Técnicas para reduzir ruído em circuitos",
+        difficulty: "intermediate",
+        duration: "30 min",
+        xpReward: 80,
+        prerequisites: [108],
+        steps: [
+          {
+            type: "theory",
+            title: "Aterramento",
+            content: "Um bom aterramento é essencial para reduzir ruído e zumbidos em pedais de guitarra."
+          }
+        ]
+      },
+      {
+        id: 110,
+        title: "Projeto: Buffer Básico",
+        description: "Construa seu primeiro pedal: um buffer para guitarra",
+        difficulty: "beginner",
+        duration: "45 min",
+        xpReward: 150,
+        prerequisites: [109],
+        steps: [
+          {
+            type: "circuit",
+            title: "Montagem do Buffer",
+            circuitData: {
+              pedalName: "Buffer Básico",
+              description: "Um buffer simples usando op-amp TL072 para isolar o sinal da guitarra",
+              components: [
+                "Op-amp TL072",
+                "Resistor 1MΩ (entrada)",
+                "Resistor 100Ω (saída)",
+                "Capacitor 100nF (acoplamento)",
+                "Capacitor 10µF (fonte)",
+                "LED indicador",
+                "Chave 3PDT"
+              ]
             }
           }
         ]
@@ -206,76 +300,176 @@ export const courseData: Module[] = [
   },
   {
     id: 2,
-    title: "Componentes Passivos",
-    description: "Resistores, capacitores e indutores - os blocos fundamentais",
+    title: "Componentes Eletrônicos",
+    description: "Conheça em detalhes os componentes usados em pedais",
     category: "components",
     difficulty: "beginner",
     prerequisites: [1],
-    totalXP: 600,
+    totalXP: 1200,
     pedalProject: {
-      name: "Passive Filter",
-      description: "Construa filtros passivos para entender frequências",
-      difficulty: "Fácil"
+      name: "Booster Simples",
+      description: "Um boost clean usando transistor",
+      difficulty: "Iniciante",
+      components: ["Transistor BC549", "Resistores", "Capacitores", "Potenciômetro"]
     },
     lessons: [
       {
-        id: 4,
-        title: "Resistores e Código de Cores",
-        description: "Entenda resistores e como ler seus valores",
-        duration: "20 min",
+        id: 201,
+        title: "Resistores",
+        description: "Tipos e aplicações de resistores em pedais",
         difficulty: "beginner",
-        prerequisites: [3],
-        xpReward: 35,
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [],
         steps: [
           {
-            id: 1,
             type: "theory",
-            title: "O que são Resistores",
-            content: "Resistores são componentes que limitam o fluxo de corrente elétrica. Eles são essenciais em circuitos de pedais para controlar ganho, volume e tonalidade. O valor do resistor é indicado por faixas coloridas que seguem um código específico. Resistores também têm potência nominal, importante para não queimarem."
-          },
-          {
-            id: 2,
-            type: "exercise",
-            title: "Código de Cores",
-            questions: [
-              {
-                id: 7,
-                type: "multiple-choice",
-                question: "Um resistor com faixas Marrom-Preto-Vermelho tem qual valor?",
-                options: ["100Ω", "1kΩ", "10kΩ", "100kΩ"],
-                correctAnswer: 1,
-                explanation: "Marrom=1, Preto=0, Vermelho=×100 = 1000Ω = 1kΩ",
-                difficulty: "medium"
-              }
-            ]
+            title: "Tipos de Resistores",
+            content: "Resistores limitam a corrente em circuitos. Existem resistores de carbono, filme metálico e wirewound."
           }
         ]
       },
       {
-        id: 5,
-        title: "Capacitores e Filtragem",
-        description: "Como capacitores afetam frequências em circuitos",
-        duration: "25 min",
+        id: 202,
+        title: "Capacitores",
+        description: "Tipos e aplicações de capacitores em pedais",
         difficulty: "beginner",
-        prerequisites: [4],
-        xpReward: 40,
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [],
         steps: [
           {
-            id: 1,
             type: "theory",
-            title: "Capacitores em Circuitos de Áudio",
-            content: "Capacitores armazenam energia elétrica e têm comportamento dependente da frequência. Em baixas frequências, capacitores têm alta impedância (bloqueiam). Em altas frequências, têm baixa impedância (passam). Esta característica é fundamental em filtros de tom."
-          },
+            title: "Tipos de Capacitores",
+            content: "Capacitores armazenam energia elétrica. Existem capacitores de polímero, de metais e de plásticos."
+          }
+        ]
+      },
+      {
+        id: 203,
+        title: "Indutores",
+        description: "Tipos e aplicações de indutores em pedais",
+        difficulty: "beginner",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [],
+        steps: [
           {
-            id: 2,
-            type: "circuit",
-            title: "Projeto: Filtro Passa-Alta",
-            circuitData: {
-              components: ["Capacitor 100nF", "Resistor 10kΩ", "Jacks de entrada/saída"],
-              schematic: "highpass_filter.svg",
-              description: "Filtro passivo que deixa passar frequências altas",
-              pedalName: "High-Pass Filter"
-            }
+            type: "theory",
+            title: "Tipos de Indutores",
+            content: "Indutores são componentes que resistem a mudança de corrente. Existem indutores passivos e ativos."
+          }
+        ]
+      },
+      {
+        id: 204,
+        title: "Transistores",
+        description: "Tipos e aplicações de transistores em pedais",
+        difficulty: "intermediate",
+        duration: "25 min",
+        xpReward: 70,
+        prerequisites: [],
+        steps: [
+          {
+            type: "theory",
+            title: "Tipos de Transistores",
+            content: "Transistores são componentes de três terminais: base, coletor e emissor. Existem transistores bipolares e transistores de gerânio."
+          }
+        ]
+      },
+      {
+        id: 205,
+        title: "Op-Amps",
+        description: "Tipos e aplicações de op-amps em pedais",
+        difficulty: "intermediate",
+        duration: "25 min",
+        xpReward: 70,
+        prerequisites: [],
+        steps: [
+          {
+            type: "theory",
+            title: "Tipos de Op-Amps",
+            content: "Op-amps são amplificadores operacionais. Existem op-amps integrados e op-amps monoblocos."
+          }
+        ]
+      },
+      {
+        id: 206,
+        title: "Diodes",
+        description: "Tipos e aplicações de diodos em pedais",
+        difficulty: "intermediate",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [],
+        steps: [
+          {
+            type: "theory",
+            title: "Tipos de Diodos",
+            content: "Diodos são componentes semicondutores que permitem a direção unidirecional do fluxo de corrente."
+          }
+        ]
+      },
+      {
+        id: 207,
+        title: "Transformadores",
+        description: "Tipos e aplicações de transformadores em pedais",
+        difficulty: "intermediate",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [],
+        steps: [
+          {
+            type: "theory",
+            title: "Tipos de Transformadores",
+            content: "Transformadores são componentes que alteram a tensão e a corrente de um sinal."
+          }
+        ]
+      },
+      {
+        id: 208,
+        title: "Leds",
+        description: "Tipos e aplicações de leds em pedais",
+        difficulty: "beginner",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [],
+        steps: [
+          {
+            type: "theory",
+            title: "Tipos de Leds",
+            content: "Leds são componentes semicondutores que emitem luz quando tensão é aplicada."
+          }
+        ]
+      },
+      {
+        id: 209,
+        title: "Chaves",
+        description: "Tipos e aplicações de chaves em pedais",
+        difficulty: "beginner",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [],
+        steps: [
+          {
+            type: "theory",
+            title: "Tipos de Chaves",
+            content: "Chaves são componentes que permitem a entrada e saída de corrente em circuitos."
+          }
+        ]
+      },
+      {
+        id: 210,
+        title: "Potenciômetros",
+        description: "Tipos e aplicações de potenciômetros em pedais",
+        difficulty: "beginner",
+        duration: "20 min",
+        xpReward: 60,
+        prerequisites: [],
+        steps: [
+          {
+            type: "theory",
+            title: "Tipos de Potenciômetros",
+            content: "Potenciômetros são componentes que permitem ajustar a tensão ou a corrente em circuitos."
           }
         ]
       }

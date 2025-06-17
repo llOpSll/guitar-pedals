@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, CheckCircle, Play, RotateCcw, Clock, Zap, Wrench, BookOpen, Target } from 'lucide-react';
 import { AppState } from '../pages/Index';
@@ -36,15 +35,15 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
   const handleNextStep = () => {
     if (currentStepData.type === "exercise" && currentStepData.questions) {
-      // Verifica se todas as perguntas foram respondidas
-      const allAnswered = currentStepData.questions.every(q => 
-        selectedAnswers[q.id] !== undefined
+      // Verifica se todas as perguntas foram respondidas e mostram resultados
+      const allAnsweredAndShown = currentStepData.questions.every(q => 
+        selectedAnswers[q.id] !== undefined && showResults[q.id] === true
       );
-      if (!allAnswered) return;
+      if (!allAnsweredAndShown) return;
     }
     
     if (isLastStep) {
-      // Marca a lição como concluída
+      // Marca a lição como concluída e adiciona XP
       if (!userProgress.completedLessons.includes(lessonId)) {
         const newProgress = {
           ...userProgress,
@@ -52,7 +51,10 @@ export const LessonView: React.FC<LessonViewProps> = ({
           xp: userProgress.xp + currentLesson.xpReward,
           level: Math.floor((userProgress.xp + currentLesson.xpReward) / 200) + 1
         };
-        onProgressUpdate(newProgress);
+        
+        // Verificar conquistas
+        const updatedProgress = checkAchievements(newProgress);
+        onProgressUpdate(updatedProgress);
       }
       onBack();
     } else {
@@ -62,9 +64,42 @@ export const LessonView: React.FC<LessonViewProps> = ({
     }
   };
 
+  const handleRestart = () => {
+    setCurrentStep(0);
+    setSelectedAnswers({});
+    setShowResults({});
+  };
+
   const handleAnswerSelect = (questionId: number, answerIndex: number | string) => {
     setSelectedAnswers(prev => ({ ...prev, [questionId]: answerIndex }));
+  };
+
+  const handleShowResult = (questionId: number) => {
     setShowResults(prev => ({ ...prev, [questionId]: true }));
+  };
+
+  const checkAchievements = (progress: UserProgress): UserProgress => {
+    const newAchievements = [...progress.achievements];
+    
+    // Primeira lição completada
+    if (progress.completedLessons.length === 1 && !newAchievements.includes('first-lesson')) {
+      newAchievements.push('first-lesson');
+    }
+    
+    // 10 lições completadas
+    if (progress.completedLessons.length >= 10 && !newAchievements.includes('lesson-master')) {
+      newAchievements.push('lesson-master');
+    }
+    
+    // Primeiro módulo completado
+    const moduleCompleted = courseData.some(module => 
+      module.lessons.every(lesson => progress.completedLessons.includes(lesson.id))
+    );
+    if (moduleCompleted && !newAchievements.includes('first-module')) {
+      newAchievements.push('first-module');
+    }
+
+    return { ...progress, achievements: newAchievements };
   };
 
   const getStepIcon = (type: string) => {
@@ -231,35 +266,15 @@ export const LessonView: React.FC<LessonViewProps> = ({
                             </button>
                           );
                         })}
-                      </div>
-                    ) : question.type === 'true-false' ? (
-                      <div className="space-y-3">
-                        {['true', 'false'].map((option, index) => {
-                          const isSelected = selectedAnswers[question.id] === option;
-                          const showResult = showResults[question.id];
-                          const isCorrect = option === question.correctAnswer;
-                          
-                          return (
-                            <button
-                              key={option}
-                              onClick={() => handleAnswerSelect(question.id, option)}
-                              disabled={showResult}
-                              className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
-                                isSelected
-                                  ? showResult
-                                    ? isCorrect
-                                      ? 'border-green-500 bg-green-50'
-                                      : 'border-red-500 bg-red-50'
-                                    : 'border-secondary bg-secondary/10'
-                                  : showResult && isCorrect
-                                    ? 'border-green-500 bg-green-50'
-                                    : 'border-accent/50 bg-white hover:border-secondary/50'
-                              }`}
-                            >
-                              <span className="text-primary">{option === 'true' ? 'Verdadeiro' : 'Falso'}</span>
-                            </button>
-                          );
-                        })}
+                        
+                        {selectedAnswers[question.id] !== undefined && !showResults[question.id] && (
+                          <button
+                            onClick={() => handleShowResult(question.id)}
+                            className="mt-3 px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90"
+                          >
+                            Ver Resultado
+                          </button>
+                        )}
                       </div>
                     ) : question.type === 'fill-blank' ? (
                       <div className="space-y-3">
@@ -269,9 +284,9 @@ export const LessonView: React.FC<LessonViewProps> = ({
                           onChange={(e) => handleAnswerSelect(question.id, e.target.value)}
                           className="w-full p-4 border-2 border-accent/50 rounded-xl focus:border-secondary outline-none"
                         />
-                        {selectedAnswers[question.id] && (
+                        {selectedAnswers[question.id] && !showResults[question.id] && (
                           <button
-                            onClick={() => setShowResults(prev => ({ ...prev, [question.id]: true }))}
+                            onClick={() => handleShowResult(question.id)}
                             className="px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90"
                           >
                             Verificar Resposta
@@ -283,7 +298,6 @@ export const LessonView: React.FC<LessonViewProps> = ({
                     {showResults[question.id] && (
                       <div className={`mt-4 p-4 rounded-xl ${
                         (question.type === 'multiple-choice' && selectedAnswers[question.id] === question.correctAnswer) ||
-                        (question.type === 'true-false' && selectedAnswers[question.id] === question.correctAnswer) ||
                         (question.type === 'fill-blank' && 
                          typeof selectedAnswers[question.id] === 'string' && 
                          typeof question.correctAnswer === 'string' &&
@@ -294,7 +308,6 @@ export const LessonView: React.FC<LessonViewProps> = ({
                       }`}>
                         <p className={`font-semibold ${
                           (question.type === 'multiple-choice' && selectedAnswers[question.id] === question.correctAnswer) ||
-                          (question.type === 'true-false' && selectedAnswers[question.id] === question.correctAnswer) ||
                           (question.type === 'fill-blank' && 
                            typeof selectedAnswers[question.id] === 'string' && 
                            typeof question.correctAnswer === 'string' &&
@@ -304,7 +317,6 @@ export const LessonView: React.FC<LessonViewProps> = ({
                             : 'text-red-800'
                         }`}>
                           {(question.type === 'multiple-choice' && selectedAnswers[question.id] === question.correctAnswer) ||
-                           (question.type === 'true-false' && selectedAnswers[question.id] === question.correctAnswer) ||
                            (question.type === 'fill-blank' && 
                             typeof selectedAnswers[question.id] === 'string' && 
                             typeof question.correctAnswer === 'string' &&
@@ -329,11 +341,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
       {/* Actions */}
       <div className="flex justify-between">
         <button
-          onClick={() => {
-            setCurrentStep(0);
-            setSelectedAnswers({});
-            setShowResults({});
-          }}
+          onClick={handleRestart}
           className="flex items-center space-x-2 px-4 py-2 text-secondary hover:text-primary transition-colors"
         >
           <RotateCcw className="w-4 h-4" />
@@ -345,7 +353,9 @@ export const LessonView: React.FC<LessonViewProps> = ({
           disabled={
             currentStepData.type === "exercise" && 
             currentStepData.questions &&
-            !currentStepData.questions.every(q => selectedAnswers[q.id] !== undefined)
+            !currentStepData.questions.every(q => 
+              selectedAnswers[q.id] !== undefined && showResults[q.id] === true
+            )
           }
           className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-secondary to-accent text-white rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >

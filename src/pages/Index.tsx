@@ -4,11 +4,13 @@ import { Header } from '../components/Header';
 import { Dashboard } from '../components/Dashboard';
 import { ModuleView } from '../components/ModuleView';
 import { LessonView } from '../components/LessonView';
+import { ProfileView } from '../components/ProfileView';
+import { SettingsView } from '../components/SettingsView';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegisterForm } from '../components/auth/RegisterForm';
 import { LocalStorageManager, UserData, UserProgress } from '../utils/storage';
 
-export type ViewType = 'dashboard' | 'module' | 'lesson';
+export type ViewType = 'dashboard' | 'module' | 'lesson' | 'profile' | 'settings';
 export type AuthView = 'login' | 'register';
 
 export interface AppState {
@@ -119,6 +121,11 @@ const Index = () => {
     setAppState(prev => ({ ...prev, userProgress: newProgress }));
   };
 
+  const updateUser = (updatedUser: UserData) => {
+    setUser(updatedUser);
+    LocalStorageManager.setCurrentUser(updatedUser);
+  };
+
   // If user is not logged in, show auth forms
   if (!user) {
     return (
@@ -160,6 +167,24 @@ const Index = () => {
             onProgressUpdate={updateProgress}
           />
         );
+      case 'profile':
+        return (
+          <ProfileView
+            user={user}
+            userProgress={appState.userProgress}
+            onBack={() => updateView('dashboard')}
+            onSettingsClick={() => updateView('settings')}
+          />
+        );
+      case 'settings':
+        return (
+          <SettingsView
+            user={user}
+            onBack={() => updateView('profile')}
+            onUserUpdate={updateUser}
+            onLogout={handleLogout}
+          />
+        );
       default:
         return (
           <Dashboard 
@@ -175,7 +200,8 @@ const Index = () => {
       <Header 
         user={user} 
         userProgress={appState.userProgress} 
-        onLogout={handleLogout} 
+        onLogout={handleLogout}
+        onProfileClick={() => updateView('profile')}
       />
       <main className="container mx-auto px-4 py-8">
         {renderCurrentView()}
