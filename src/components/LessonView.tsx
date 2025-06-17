@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import { ArrowLeft, CheckCircle, Play, RotateCcw } from 'lucide-react';
 import { AppState } from '../pages/Index';
+import { UserProgress } from '../utils/storage';
 
 interface LessonViewProps {
   moduleId: number;
   lessonId: number;
   onBack: () => void;
   userProgress: AppState['userProgress'];
+  onProgressUpdate: (newProgress: UserProgress) => void;
 }
 
 export const LessonView: React.FC<LessonViewProps> = ({ 
