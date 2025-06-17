@@ -131,23 +131,24 @@ export class LocalStorageManager {
         return userProgress;
       }
 
-      // Create new progress for user
+      // Create completely fresh progress for new user - EVERYTHING starts at zero
       const newProgress: UserProgress = {
         userId,
         level: 1,
         xp: 0,
-        completedLessons: [],
-        completedModules: [],
-        achievements: [],
+        completedLessons: [], // Empty - no lessons completed
+        completedModules: [], // Empty - no modules completed
+        achievements: [], // Empty - no achievements
         currentStreak: 0,
         lastStudyDate: '',
-        lessonProgress: {}
+        lessonProgress: {} // Empty - no lesson progress
       };
 
       this.saveProgress(newProgress);
       return newProgress;
     } catch (error) {
       console.error('Error getting user progress:', error);
+      // Return completely empty progress even on error
       return {
         userId,
         level: 1,

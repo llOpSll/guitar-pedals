@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, CheckCircle, Play, RotateCcw } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Play, RotateCcw, Clock, Zap, Wrench, BookOpen, Target } from 'lucide-react';
 import { AppState } from '../pages/Index';
 import { UserProgress } from '../utils/storage';
+import { courseData } from '../data/courseData';
 
 interface LessonViewProps {
   moduleId: number;
@@ -16,39 +17,15 @@ export const LessonView: React.FC<LessonViewProps> = ({
   moduleId, 
   lessonId, 
   onBack, 
-  userProgress 
+  userProgress,
+  onProgressUpdate
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-  const [showResult, setShowResult] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState<{ [questionId: number]: number | string }>({});
+  const [showResults, setShowResults] = useState<{ [questionId: number]: boolean }>({});
 
-  const lessonData = {
-    1: {
-      title: "O que é Corrente Elétrica",
-      steps: [
-        {
-          type: "theory",
-          title: "Conceito de Corrente Elétrica",
-          content: "A corrente elétrica é o fluxo de cargas elétricas através de um condutor. É medida em Ampères (A) e representa a quantidade de carga que passa por um ponto em um determinado tempo.",
-          image: "/placeholder.svg"
-        },
-        {
-          type: "exercise",
-          question: "Qual é a unidade de medida da corrente elétrica?",
-          options: [
-            "Volts (V)",
-            "Ampères (A)", 
-            "Ohms (Ω)",
-            "Watts (W)"
-          ],
-          correctAnswer: 1,
-          explanation: "A corrente elétrica é medida em Ampères (A), em homenagem ao físico André-Marie Ampère."
-        }
-      ]
-    }
-  };
-
-  const currentLesson = lessonData[lessonId as keyof typeof lessonData];
+  const currentModule = courseData.find(m => m.id === moduleId);
+  const currentLesson = currentModule?.lessons.find(l => l.id === lessonId);
   
   if (!currentLesson) {
     return <div>Lição não encontrada</div>;
@@ -58,25 +35,55 @@ export const LessonView: React.FC<LessonViewProps> = ({
   const isLastStep = currentStep === currentLesson.steps.length - 1;
 
   const handleNextStep = () => {
-    if (currentStepData.type === "exercise" && selectedAnswer === null) {
-      return;
+    if (currentStepData.type === "exercise" && currentStepData.questions) {
+      // Verifica se todas as perguntas foram respondidas
+      const allAnswered = currentStepData.questions.every(q => 
+        selectedAnswers[q.id] !== undefined
+      );
+      if (!allAnswered) return;
     }
     
     if (isLastStep) {
+      // Marca a lição como concluída
+      if (!userProgress.completedLessons.includes(lessonId)) {
+        const newProgress = {
+          ...userProgress,
+          completedLessons: [...userProgress.completedLessons, lessonId],
+          xp: userProgress.xp + currentLesson.xpReward,
+          level: Math.floor((userProgress.xp + currentLesson.xpReward) / 200) + 1
+        };
+        onProgressUpdate(newProgress);
+      }
       onBack();
     } else {
       setCurrentStep(currentStep + 1);
-      setSelectedAnswer(null);
-      setShowResult(false);
+      setSelectedAnswers({});
+      setShowResults({});
     }
   };
 
-  const handleAnswerSelect = (answerIndex: number) => {
-    setSelectedAnswer(answerIndex);
-    setShowResult(true);
+  const handleAnswerSelect = (questionId: number, answerIndex: number | string) => {
+    setSelectedAnswers(prev => ({ ...prev, [questionId]: answerIndex }));
+    setShowResults(prev => ({ ...prev, [questionId]: true }));
   };
 
-  const isCorrectAnswer = selectedAnswer === currentStepData.correctAnswer;
+  const getStepIcon = (type: string) => {
+    switch (type) {
+      case 'theory': return BookOpen;
+      case 'exercise': return Target;
+      case 'circuit': return Wrench;
+      default: return BookOpen;
+    }
+  };
+
+  const getStepTypeText = (type: string) => {
+    switch (type) {
+      case 'theory': return 'Teoria';
+      case 'exercise': return 'Exercício';
+      case 'circuit': return 'Circuito';
+      default: return 'Conteúdo';
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
@@ -91,9 +98,20 @@ export const LessonView: React.FC<LessonViewProps> = ({
           </button>
           <div>
             <h1 className="text-2xl font-bold text-primary">{currentLesson.title}</h1>
-            <p className="text-secondary">
-              Passo {currentStep + 1} de {currentLesson.steps.length}
-            </p>
+            <div className="flex items-center space-x-4 text-sm text-secondary mt-1">
+              <span>Etapa {currentStep + 1} de {currentLesson.steps.length}</span>
+              <span>•</span>
+              <span>{getStepTypeText(currentStepData.type)}</span>
+              {currentLesson.xpReward && (
+                <>
+                  <span>•</span>
+                  <div className="flex items-center space-x-1">
+                    <Zap className="w-4 h-4" />
+                    <span>{currentLesson.xpReward} XP</span>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
         
@@ -108,88 +126,204 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
       {/* Content */}
       <div className="glass-card rounded-2xl p-8">
+        {/* Step Header */}
+        <div className="flex items-center space-x-3 mb-6">
+          {React.createElement(getStepIcon(currentStepData.type), {
+            className: "w-6 h-6 text-secondary"
+          })}
+          <h2 className="text-xl font-semibold text-primary">
+            {currentStepData.title}
+          </h2>
+        </div>
+
         {currentStepData.type === "theory" ? (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-primary">
-              {currentStepData.title}
-            </h2>
             <div className="prose prose-lg text-secondary max-w-none">
-              <p>{currentStepData.content}</p>
+              <p className="text-lg leading-relaxed">{currentStepData.content}</p>
             </div>
-            {currentStepData.image && (
-              <div className="bg-accent/10 rounded-xl p-8 text-center">
-                <div className="w-64 h-40 bg-accent/20 rounded-lg mx-auto flex items-center justify-center">
-                  <span className="text-secondary">Diagrama Ilustrativo</span>
+          </div>
+        ) : currentStepData.type === "circuit" && currentStepData.circuitData ? (
+          <div className="space-y-6">
+            <div className="bg-accent/10 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-primary mb-4">
+                Projeto: {currentStepData.circuitData.pedalName || "Circuito"}
+              </h3>
+              <p className="text-secondary mb-4">{currentStepData.circuitData.description}</p>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-primary mb-3">Componentes Necessários:</h4>
+                  <ul className="space-y-2">
+                    {currentStepData.circuitData.components.map((component, index) => (
+                      <li key={index} className="flex items-center space-x-2 text-secondary">
+                        <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                        <span>{component}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="bg-white rounded-lg p-4 border border-accent/20">
+                  <h4 className="font-semibold text-primary mb-3">Esquema do Circuito:</h4>
+                  <div className="w-full h-48 bg-accent/10 rounded-lg flex items-center justify-center">
+                    <span className="text-secondary">Diagrama do {currentStepData.circuitData.pedalName}</span>
+                  </div>
                 </div>
               </div>
-            )}
-          </div>
-        ) : (
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-primary">
-              Exercício
-            </h2>
-            <p className="text-lg text-secondary">
-              {currentStepData.question}
-            </p>
-            
-            <div className="space-y-3">
-              {currentStepData.options?.map((option, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleAnswerSelect(index)}
-                  disabled={showResult}
-                  className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
-                    selectedAnswer === index
-                      ? showResult
-                        ? isCorrectAnswer
-                          ? 'border-green-500 bg-green-50'
-                          : 'border-red-500 bg-red-50'
-                        : 'border-secondary bg-secondary/10'
-                      : showResult && index === currentStepData.correctAnswer
-                        ? 'border-green-500 bg-green-50'
-                        : 'border-accent/50 bg-white hover:border-secondary/50'
-                  }`}
-                >
-                  <div className="flex items-center space-x-3">
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                      selectedAnswer === index
-                        ? showResult
-                          ? isCorrectAnswer
-                            ? 'border-green-500 bg-green-500'
-                            : 'border-red-500 bg-red-500'
-                          : 'border-secondary bg-secondary'
-                        : showResult && index === currentStepData.correctAnswer
-                          ? 'border-green-500 bg-green-500'
-                          : 'border-accent'
-                    }`}>
-                      {(selectedAnswer === index && showResult && isCorrectAnswer) || 
-                       (showResult && index === currentStepData.correctAnswer) ? (
-                        <CheckCircle className="w-4 h-4 text-white" />
-                      ) : null}
-                    </div>
-                    <span className="text-primary">{option}</span>
-                  </div>
-                </button>
-              ))}
             </div>
-            
-            {showResult && (
-              <div className={`p-4 rounded-xl ${
-                isCorrectAnswer ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
-              }`}>
-                <p className={`font-semibold ${
-                  isCorrectAnswer ? 'text-green-800' : 'text-red-800'
-                }`}>
-                  {isCorrectAnswer ? 'Correto!' : 'Incorreto'}
-                </p>
-                <p className="text-sm text-secondary mt-1">
-                  {currentStepData.explanation}
-                </p>
-              </div>
-            )}
           </div>
-        )}
+        ) : currentStepData.type === "exercise" && currentStepData.questions ? (
+          <div className="space-y-8">
+            {currentStepData.questions.map((question, qIndex) => (
+              <div key={question.id} className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-sm font-semibold text-secondary">{qIndex + 1}</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-lg text-primary font-medium mb-4">
+                      {question.question}
+                    </p>
+                    
+                    {question.type === 'multiple-choice' && question.options ? (
+                      <div className="space-y-3">
+                        {question.options.map((option, index) => {
+                          const isSelected = selectedAnswers[question.id] === index;
+                          const showResult = showResults[question.id];
+                          const isCorrect = index === question.correctAnswer;
+                          
+                          return (
+                            <button
+                              key={index}
+                              onClick={() => handleAnswerSelect(question.id, index)}
+                              disabled={showResult}
+                              className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
+                                isSelected
+                                  ? showResult
+                                    ? isCorrect
+                                      ? 'border-green-500 bg-green-50'
+                                      : 'border-red-500 bg-red-50'
+                                    : 'border-secondary bg-secondary/10'
+                                  : showResult && isCorrect
+                                    ? 'border-green-500 bg-green-50'
+                                    : 'border-accent/50 bg-white hover:border-secondary/50'
+                              }`}
+                            >
+                              <div className="flex items-center space-x-3">
+                                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                                  isSelected
+                                    ? showResult
+                                      ? isCorrect
+                                        ? 'border-green-500 bg-green-500'
+                                        : 'border-red-500 bg-red-500'
+                                      : 'border-secondary bg-secondary'
+                                    : showResult && isCorrect
+                                      ? 'border-green-500 bg-green-500'
+                                      : 'border-accent'
+                                }`}>
+                                  {((isSelected && showResult && isCorrect) || 
+                                   (showResult && isCorrect)) && (
+                                    <CheckCircle className="w-4 h-4 text-white" />
+                                  )}
+                                </div>
+                                <span className="text-primary">{option}</span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ) : question.type === 'true-false' ? (
+                      <div className="space-y-3">
+                        {['true', 'false'].map((option, index) => {
+                          const isSelected = selectedAnswers[question.id] === option;
+                          const showResult = showResults[question.id];
+                          const isCorrect = option === question.correctAnswer;
+                          
+                          return (
+                            <button
+                              key={option}
+                              onClick={() => handleAnswerSelect(question.id, option)}
+                              disabled={showResult}
+                              className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
+                                isSelected
+                                  ? showResult
+                                    ? isCorrect
+                                      ? 'border-green-500 bg-green-50'
+                                      : 'border-red-500 bg-red-50'
+                                    : 'border-secondary bg-secondary/10'
+                                  : showResult && isCorrect
+                                    ? 'border-green-500 bg-green-50'
+                                    : 'border-accent/50 bg-white hover:border-secondary/50'
+                              }`}
+                            >
+                              <span className="text-primary">{option === 'true' ? 'Verdadeiro' : 'Falso'}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ) : question.type === 'fill-blank' ? (
+                      <div className="space-y-3">
+                        <input
+                          type="text"
+                          placeholder="Digite sua resposta..."
+                          onChange={(e) => handleAnswerSelect(question.id, e.target.value)}
+                          className="w-full p-4 border-2 border-accent/50 rounded-xl focus:border-secondary outline-none"
+                        />
+                        {selectedAnswers[question.id] && (
+                          <button
+                            onClick={() => setShowResults(prev => ({ ...prev, [question.id]: true }))}
+                            className="px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90"
+                          >
+                            Verificar Resposta
+                          </button>
+                        )}
+                      </div>
+                    ) : null}
+                    
+                    {showResults[question.id] && (
+                      <div className={`mt-4 p-4 rounded-xl ${
+                        (question.type === 'multiple-choice' && selectedAnswers[question.id] === question.correctAnswer) ||
+                        (question.type === 'true-false' && selectedAnswers[question.id] === question.correctAnswer) ||
+                        (question.type === 'fill-blank' && 
+                         typeof selectedAnswers[question.id] === 'string' && 
+                         typeof question.correctAnswer === 'string' &&
+                         (selectedAnswers[question.id] as string).toLowerCase().trim() === 
+                         (question.correctAnswer as string).toLowerCase().trim())
+                          ? 'bg-green-50 border border-green-200' 
+                          : 'bg-red-50 border border-red-200'
+                      }`}>
+                        <p className={`font-semibold ${
+                          (question.type === 'multiple-choice' && selectedAnswers[question.id] === question.correctAnswer) ||
+                          (question.type === 'true-false' && selectedAnswers[question.id] === question.correctAnswer) ||
+                          (question.type === 'fill-blank' && 
+                           typeof selectedAnswers[question.id] === 'string' && 
+                           typeof question.correctAnswer === 'string' &&
+                           (selectedAnswers[question.id] as string).toLowerCase().trim() === 
+                           (question.correctAnswer as string).toLowerCase().trim())
+                            ? 'text-green-800' 
+                            : 'text-red-800'
+                        }`}>
+                          {(question.type === 'multiple-choice' && selectedAnswers[question.id] === question.correctAnswer) ||
+                           (question.type === 'true-false' && selectedAnswers[question.id] === question.correctAnswer) ||
+                           (question.type === 'fill-blank' && 
+                            typeof selectedAnswers[question.id] === 'string' && 
+                            typeof question.correctAnswer === 'string' &&
+                            (selectedAnswers[question.id] as string).toLowerCase().trim() === 
+                            (question.correctAnswer as string).toLowerCase().trim())
+                            ? 'Correto!' 
+                            : 'Incorreto'}
+                        </p>
+                        <p className="text-sm text-secondary mt-1">
+                          {question.explanation}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
 
       {/* Actions */}
@@ -197,8 +331,8 @@ export const LessonView: React.FC<LessonViewProps> = ({
         <button
           onClick={() => {
             setCurrentStep(0);
-            setSelectedAnswer(null);
-            setShowResult(false);
+            setSelectedAnswers({});
+            setShowResults({});
           }}
           className="flex items-center space-x-2 px-4 py-2 text-secondary hover:text-primary transition-colors"
         >
@@ -208,10 +342,14 @@ export const LessonView: React.FC<LessonViewProps> = ({
         
         <button
           onClick={handleNextStep}
-          disabled={currentStepData.type === "exercise" && selectedAnswer === null}
+          disabled={
+            currentStepData.type === "exercise" && 
+            currentStepData.questions &&
+            !currentStepData.questions.every(q => selectedAnswers[q.id] !== undefined)
+          }
           className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-secondary to-accent text-white rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isLastStep ? 'Finalizar' : 'Próximo'}
+          {isLastStep ? 'Finalizar Lição' : 'Próxima Etapa'}
           <Play className="w-4 h-4" />
         </button>
       </div>
