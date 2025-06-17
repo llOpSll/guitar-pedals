@@ -63,8 +63,7 @@ export const courseData: Module[] = [
     pedalProject: {
       name: "Buffer Básico",
       description: "Construa seu primeiro circuito: um buffer para guitarra",
-      difficulty: "Iniciante",
-      components: ["Op-amp TL072", "Resistores", "Capacitores", "LED", "Chave 3PDT"]
+      difficulty: "Iniciante"
     },
     lessons: [
       {
@@ -77,11 +76,13 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Conceitos Básicos",
             content: "A eletrônica é a ciência que estuda o comportamento dos elétrons em circuitos. Em pedais de guitarra, manipulamos o sinal elétrico da guitarra para criar diferentes efeitos sonoros."
           },
           {
+            id: 2,
             type: "exercise",
             title: "Teste de Conhecimento",
             questions: [
@@ -91,7 +92,8 @@ export const courseData: Module[] = [
                 question: "O que é um sinal elétrico?",
                 options: ["Uma onda sonora", "Um fluxo de elétrons", "Uma vibração mecânica", "Um campo magnético"],
                 correctAnswer: 1,
-                explanation: "Um sinal elétrico é o fluxo controlado de elétrons através de um condutor."
+                explanation: "Um sinal elétrico é o fluxo controlado de elétrons através de um condutor.",
+                difficulty: "easy"
               }
             ]
           }
@@ -107,11 +109,13 @@ export const courseData: Module[] = [
         prerequisites: [101],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tensão Elétrica",
             content: "A tensão é a diferença de potencial elétrico entre dois pontos. É medida em Volts (V). Nos pedais de guitarra, geralmente trabalhamos com tensões de 9V."
           },
           {
+            id: 2,
             type: "exercise",
             title: "Exercícios de Tensão",
             questions: [
@@ -121,14 +125,16 @@ export const courseData: Module[] = [
                 question: "Qual é a unidade de medida da tensão?",
                 options: ["Ampère", "Volt", "Ohm", "Watt"],
                 correctAnswer: 1,
-                explanation: "A tensão é medida em Volts (V), em homenagem ao físico Alessandro Volta."
+                explanation: "A tensão é medida em Volts (V), em homenagem ao físico Alessandro Volta.",
+                difficulty: "easy"
               },
               {
                 id: 1022,
                 type: "true-false",
                 question: "A maioria dos pedais de guitarra funciona com 9V",
                 correctAnswer: "true",
-                explanation: "Sim, a grande maioria dos pedais utiliza fonte de 9V DC."
+                explanation: "Sim, a grande maioria dos pedais utiliza fonte de 9V DC.",
+                difficulty: "easy"
               }
             ]
           }
@@ -144,11 +150,13 @@ export const courseData: Module[] = [
         prerequisites: [102],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "A Lei de Ohm",
             content: "A Lei de Ohm estabelece que V = I × R, onde V é tensão, I é corrente e R é resistência. Esta é uma das leis mais importantes na eletrônica."
           },
           {
+            id: 2,
             type: "exercise",
             title: "Calculando com a Lei de Ohm",
             questions: [
@@ -157,7 +165,8 @@ export const courseData: Module[] = [
                 type: "fill-blank",
                 question: "Se temos 9V e uma resistência de 1000Ω, qual é a corrente? (resposta em mA)",
                 correctAnswer: "9",
-                explanation: "I = V/R = 9V/1000Ω = 0.009A = 9mA"
+                explanation: "I = V/R = 9V/1000Ω = 0.009A = 9mA",
+                difficulty: "medium"
               }
             ]
           }
@@ -173,17 +182,20 @@ export const courseData: Module[] = [
         prerequisites: [103],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "O que são Capacitores",
             content: "Capacitores armazenam energia elétrica temporariamente. Em pedais de guitarra, são usados para filtrar frequências e acoplar sinais."
           },
           {
+            id: 2,
             type: "circuit",
             title: "Circuito com Capacitor",
             circuitData: {
               pedalName: "Filtro Passa-Alta",
               description: "Um simples filtro que deixa passar frequências agudas",
-              components: ["Capacitor 100nF", "Resistor 10kΩ", "Conectores de entrada e saída"]
+              components: ["Capacitor 100nF", "Resistor 10kΩ", "Conectores de entrada e saída"],
+              schematic: "Entrada → [Capacitor 100nF] → [Resistor 10kΩ para terra] → Saída"
             }
           }
         ]
@@ -198,6 +210,7 @@ export const courseData: Module[] = [
         prerequisites: [104],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "O que é um Op-Amp",
             content: "Amplificadores operacionais são circuitos integrados que amplificam sinais. O TL072 é muito usado em pedais de guitarra."
@@ -214,6 +227,7 @@ export const courseData: Module[] = [
         prerequisites: [105],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Sinal da Guitarra",
             content: "O sinal da guitarra elétrica é um sinal AC de baixa amplitude, geralmente entre 100mV a 1V pico a pico."
@@ -230,6 +244,7 @@ export const courseData: Module[] = [
         prerequisites: [106],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Impedância",
             content: "Impedância é a oposição total ao fluxo de corrente AC. É importante casar impedâncias entre equipamentos."
@@ -246,6 +261,7 @@ export const courseData: Module[] = [
         prerequisites: [107],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Alimentação de Pedais",
             content: "A maioria dos pedais usa fonte de 9V DC. É importante ter uma fonte estável e com baixo ruído."
@@ -262,6 +278,7 @@ export const courseData: Module[] = [
         prerequisites: [108],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Aterramento",
             content: "Um bom aterramento é essencial para reduzir ruído e zumbidos em pedais de guitarra."
@@ -278,6 +295,7 @@ export const courseData: Module[] = [
         prerequisites: [109],
         steps: [
           {
+            id: 1,
             type: "circuit",
             title: "Montagem do Buffer",
             circuitData: {
@@ -291,7 +309,8 @@ export const courseData: Module[] = [
                 "Capacitor 10µF (fonte)",
                 "LED indicador",
                 "Chave 3PDT"
-              ]
+              ],
+              schematic: "Entrada → TL072 (pino 3) → TL072 (pino 1) → Resistor 100Ω → Saída"
             }
           }
         ]
@@ -309,8 +328,7 @@ export const courseData: Module[] = [
     pedalProject: {
       name: "Booster Simples",
       description: "Um boost clean usando transistor",
-      difficulty: "Iniciante",
-      components: ["Transistor BC549", "Resistores", "Capacitores", "Potenciômetro"]
+      difficulty: "Iniciante"
     },
     lessons: [
       {
@@ -323,6 +341,7 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Resistores",
             content: "Resistores limitam a corrente em circuitos. Existem resistores de carbono, filme metálico e wirewound."
@@ -339,9 +358,10 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Capacitores",
-            content: "Capacitores armazenam energia elétrica. Existem capacitores de polímero, de metais e de plásticos."
+            content: "Capacitores armazenam energia elétrica. Existem capacitores eletrolíticos, cerâmicos e de filme."
           }
         ]
       },
@@ -355,9 +375,10 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Indutores",
-            content: "Indutores são componentes que resistem a mudança de corrente. Existem indutores passivos e ativos."
+            content: "Indutores são componentes que se opõem a mudanças de corrente. São usados em filtros e wahs."
           }
         ]
       },
@@ -371,9 +392,10 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Transistores",
-            content: "Transistores são componentes de três terminais: base, coletor e emissor. Existem transistores bipolares e transistores de gerânio."
+            content: "Transistores são componentes de três terminais: base, coletor e emissor. Podem ser BJT ou JFET."
           }
         ]
       },
@@ -387,15 +409,16 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Op-Amps",
-            content: "Op-amps são amplificadores operacionais. Existem op-amps integrados e op-amps monoblocos."
+            content: "Op-amps são amplificadores de alta impedância. TL072, NE5532 e OPA2134 são populares em áudio."
           }
         ]
       },
       {
         id: 206,
-        title: "Diodes",
+        title: "Diodos",
         description: "Tipos e aplicações de diodos em pedais",
         difficulty: "intermediate",
         duration: "20 min",
@@ -403,9 +426,10 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Diodos",
-            content: "Diodos são componentes semicondutores que permitem a direção unidirecional do fluxo de corrente."
+            content: "Diodos permitem fluxo de corrente em uma direção. São usados para clipping e retificação."
           }
         ]
       },
@@ -419,25 +443,27 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Transformadores",
-            content: "Transformadores são componentes que alteram a tensão e a corrente de um sinal."
+            content: "Transformadores alteram tensão através de indução magnética. Usados em fontes e isolamento."
           }
         ]
       },
       {
         id: 208,
-        title: "Leds",
-        description: "Tipos e aplicações de leds em pedais",
+        title: "LEDs",
+        description: "Tipos e aplicações de LEDs em pedais",
         difficulty: "beginner",
         duration: "20 min",
         xpReward: 60,
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
-            title: "Tipos de Leds",
-            content: "Leds são componentes semicondutores que emitem luz quando tensão é aplicada."
+            title: "Tipos de LEDs",
+            content: "LEDs são diodos que emitem luz. Usados como indicadores visuais em pedais."
           }
         ]
       },
@@ -451,9 +477,10 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Chaves",
-            content: "Chaves são componentes que permitem a entrada e saída de corrente em circuitos."
+            content: "Chaves interrompem ou conectam circuitos. 3PDT é padrão para true bypass em pedais."
           }
         ]
       },
@@ -467,9 +494,10 @@ export const courseData: Module[] = [
         prerequisites: [],
         steps: [
           {
+            id: 1,
             type: "theory",
             title: "Tipos de Potenciômetros",
-            content: "Potenciômetros são componentes que permitem ajustar a tensão ou a corrente em circuitos."
+            content: "Potenciômetros são resistores variáveis. Lineares (B) e logarítmicos (A) têm curvas diferentes."
           }
         ]
       }
