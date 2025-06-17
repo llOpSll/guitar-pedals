@@ -127,14 +127,6 @@ export const courseData: Module[] = [
                 correctAnswer: 1,
                 explanation: "A tensão é medida em Volts (V), em homenagem ao físico Alessandro Volta.",
                 difficulty: "easy"
-              },
-              {
-                id: 1022,
-                type: "true-false",
-                question: "A maioria dos pedais de guitarra funciona com 9V",
-                correctAnswer: "true",
-                explanation: "Sim, a grande maioria dos pedais utiliza fonte de 9V DC.",
-                difficulty: "easy"
               }
             ]
           }
@@ -510,7 +502,7 @@ export const courseData: Module[] = [
     category: "components",
     difficulty: "intermediate",
     prerequisites: [2],
-    totalXP: 700,
+    totalXP: 1400,
     pedalProject: {
       name: "Clean Boost",
       description: "Amplificador limpo usando op-amp",
@@ -518,27 +510,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 6,
+        id: 301,
         title: "Introdução aos Op-Amps",
         description: "Conceitos básicos de amplificadores operacionais",
         duration: "30 min",
         difficulty: "intermediate",
-        prerequisites: [5],
-        xpReward: 50,
+        prerequisites: [],
+        xpReward: 70,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "O que são Op-Amps",
-            content: "Amplificadores operacionais são circuitos integrados versáteis com ganho muito alto. Têm duas entradas (+ e -) e uma saída. O princípio básico: a saída tenta fazer com que as duas entradas tenham a mesma tensão. São usados em configurações como buffer, amplificador não-inversor e inversor."
-          },
+            content: "Amplificadores operacionais são circuitos integrados versáteis com ganho muito alto. Têm duas entradas (+ e -) e uma saída."
+          }
+        ]
+      },
+      {
+        id: 302,
+        title: "Configuração Inversor",
+        description: "Amplificador inversor com op-amp",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [301],
+        xpReward: 60,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Amplificador Inversor",
+            content: "Na configuração inversora, o sinal é aplicado na entrada negativa, resultando em saída invertida."
+          }
+        ]
+      },
+      {
+        id: 303,
+        title: "Configuração Não-Inversor",
+        description: "Amplificador não-inversor com op-amp",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [302],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Amplificador Não-Inversor",
+            content: "Na configuração não-inversora, o sinal é aplicado na entrada positiva, mantendo a fase."
+          }
+        ]
+      },
+      {
+        id: 304,
+        title: "Buffer com Op-Amp",
+        description: "Seguidor de tensão para isolamento",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [303],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Seguidor de Tensão",
+            content: "Um buffer tem ganho unitário mas alta impedância de entrada e baixa de saída."
+          }
+        ]
+      },
+      {
+        id: 305,
+        title: "Somador com Op-Amp",
+        description: "Circuito somador para misturar sinais",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [304],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Circuito Somador",
+            content: "O somador permite combinar múltiplos sinais em um só, usado em mixers."
+          }
+        ]
+      },
+      {
+        id: 306,
+        title: "Integrador com Op-Amp",
+        description: "Circuito integrador para formar ondas",
+        duration: "25 min",
+        difficulty: "advanced",
+        prerequisites: [305],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Circuito Integrador",
+            content: "O integrador converte ondas quadradas em triangulares, usado em osciladores."
+          }
+        ]
+      },
+      {
+        id: 307,
+        title: "Diferenciador com Op-Amp",
+        description: "Circuito diferenciador para detectar mudanças",
+        duration: "25 min",
+        difficulty: "advanced",
+        prerequisites: [306],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Circuito Diferenciador",
+            content: "O diferenciador detecta mudanças rápidas no sinal, usado em detectores de ataque."
+          }
+        ]
+      },
+      {
+        id: 308,
+        title: "Comparador com Op-Amp",
+        description: "Circuito comparador para decisões digitais",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [307],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Circuito Comparador",
+            content: "O comparador compara dois sinais e decide qual é maior, base para gates."
+          }
+        ]
+      },
+      {
+        id: 309,
+        title: "Oscilador com Op-Amp",
+        description: "Gerando sinais com op-amps",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [308],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Osciladores",
+            content: "Op-amps podem gerar ondas senoidais, quadradas e triangulares para LFOs."
+          }
+        ]
+      },
+      {
+        id: 310,
+        title: "Projeto: Clean Boost",
+        description: "Construindo um boost limpo com op-amp",
+        duration: "40 min",
+        difficulty: "intermediate",
+        prerequisites: [309],
+        xpReward: 100,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Clean Boost",
             circuitData: {
               components: ["TL072", "Resistores diversos", "Capacitores", "Potenciômetro"],
-              schematic: "clean_boost.svg",
+              schematic: "Entrada → Capacitor → Op-amp não-inversor → Capacitor → Saída",
               description: "Amplificador limpo com ganho ajustável",
               pedalName: "Clean Boost"
             }
@@ -554,7 +693,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "intermediate",
     prerequisites: [3],
-    totalXP: 800,
+    totalXP: 1500,
     pedalProject: {
       name: "Tone Control",
       description: "Controle de tom ativo com op-amp",
@@ -562,27 +701,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 7,
-        title: "Filtros com Op-Amp",
-        description: "Criando filtros ativos para controle de tom",
-        duration: "35 min",
+        id: 401,
+        title: "Teoria dos Filtros",
+        description: "Fundamentos de filtragem de frequências",
+        duration: "30 min",
         difficulty: "intermediate",
-        prerequisites: [6],
+        prerequisites: [],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Tipos de Filtros",
+            content: "Filtros passa-baixa, passa-alta, passa-banda e rejeita-banda controlam quais frequências passam."
+          }
+        ]
+      },
+      {
+        id: 402,
+        title: "Filtro Passa-Baixa Ativo",
+        description: "Removendo frequências agudas",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [401],
         xpReward: 60,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "Vantagens dos Filtros Ativos",
-            content: "Filtros ativos usam amplificação para superar as limitações dos filtros passivos. Permitem ganho, isolamento entre estágios e resposta de frequência mais precisa. São ideais para controles de tom em pedais."
-          },
+            title: "Passa-Baixa",
+            content: "Filtros passa-baixa deixam passar graves e cortam agudos, usados para suavizar o som."
+          }
+        ]
+      },
+      {
+        id: 403,
+        title: "Filtro Passa-Alta Ativo",
+        description: "Removendo frequências graves",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [402],
+        xpReward: 60,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Passa-Alta",
+            content: "Filtros passa-alta deixam passar agudos e cortam graves, removem ruído de baixa frequência."
+          }
+        ]
+      },
+      {
+        id: 404,
+        title: "Filtro Passa-Banda Ativo",
+        description: "Isolando uma faixa de frequências",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [403],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Passa-Banda",
+            content: "Filtros passa-banda isolam uma faixa específica, base para wahs e vocoders."
+          }
+        ]
+      },
+      {
+        id: 405,
+        title: "Filtro Notch (Rejeita-Banda)",
+        description: "Removendo frequências específicas",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [404],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Filtro Notch",
+            content: "Filtros notch removem frequências específicas, usados para eliminar ruído de 60Hz."
+          }
+        ]
+      },
+      {
+        id: 406,
+        title: "Controle de Tom Ativo",
+        description: "EQ ativo com op-amps",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [405],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "EQ Ativo",
+            content: "Controles de tom ativos podem amplificar além de cortar frequências."
+          }
+        ]
+      },
+      {
+        id: 407,
+        title: "Filtro Sallen-Key",
+        description: "Topologia clássica de filtros ativos",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [406],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Topologia Sallen-Key",
+            content: "Sallen-Key é uma configuração eficiente para filtros de 2ª ordem."
+          }
+        ]
+      },
+      {
+        id: 408,
+        title: "Filtro de Múltipla Realimentação",
+        description: "MFB - Multiple Feedback Filter",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [407],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "MFB Filter",
+            content: "Filtros MFB oferecem controle independente de ganho e frequência."
+          }
+        ]
+      },
+      {
+        id: 409,
+        title: "Filtros de Estado Variável",
+        description: "SVF - State Variable Filter",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [408],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "State Variable Filter",
+            content: "SVF produz simultaneamente saídas passa-baixa, passa-alta e passa-banda."
+          }
+        ]
+      },
+      {
+        id: 410,
+        title: "Projeto: EQ 3 Bandas",
+        description: "Equalizador ativo completo",
+        duration: "45 min",
+        difficulty: "intermediate",
+        prerequisites: [409],
+        xpReward: 100,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: EQ de 3 Bandas",
             circuitData: {
               components: ["TL072", "Resistores", "Capacitores", "Potenciômetros de Graves/Médios/Agudos"],
-              schematic: "eq_3band.svg",
+              schematic: "Entrada → Filtro Graves → Filtro Médios → Filtro Agudos → Saída",
               description: "Equalizador ativo de 3 bandas",
               pedalName: "3-Band EQ"
             }
@@ -598,7 +884,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "intermediate",
     prerequisites: [4],
-    totalXP: 900,
+    totalXP: 1600,
     pedalProject: {
       name: "Soft Clipping Overdrive",
       description: "Overdrive suave com diodos",
@@ -606,27 +892,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 8,
+        id: 501,
         title: "Teoria da Distorção",
         description: "Como criar e controlar distorção harmônica",
-        duration: "40 min",
+        duration: "35 min",
         difficulty: "intermediate",
-        prerequisites: [7],
-        xpReward: 70,
+        prerequisites: [],
+        xpReward: 80,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "Tipos de Clipping",
-            content: "Existem dois tipos principais de clipping: hard clipping (corte abrupto) e soft clipping (corte suave). Soft clipping usa diodos no feedback do op-amp, criando distorção mais musical. Hard clipping usa diodos direto no sinal, criando distorção mais agressiva."
-          },
+            content: "Existem dois tipos principais: hard clipping (corte abrupto) e soft clipping (corte suave)."
+          }
+        ]
+      },
+      {
+        id: 502,
+        title: "Soft Clipping com Diodos",
+        description: "Distorção suave no feedback",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [501],
+        xpReward: 70,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Soft Clipping",
+            content: "Soft clipping usa diodos no feedback do op-amp, criando distorção mais musical."
+          }
+        ]
+      },
+      {
+        id: 503,
+        title: "Hard Clipping com Diodos",
+        description: "Distorção agressiva direta",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [502],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Hard Clipping",
+            content: "Hard clipping usa diodos direto no sinal, criando distorção mais agressiva."
+          }
+        ]
+      },
+      {
+        id: 504,
+        title: "Tipos de Diodos para Clipping",
+        description: "Germânio, silício e LED",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [503],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Diodos para Clipping",
+            content: "Diodos de germânio são suaves, silício mais duros, LEDs têm threshold alto."
+          }
+        ]
+      },
+      {
+        id: 505,
+        title: "Controle de Drive",
+        description: "Ajustando a quantidade de distorção",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [504],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Controle de Drive",
+            content: "O controle de drive ajusta o ganho antes do clipping, controlando a distorção."
+          }
+        ]
+      },
+      {
+        id: 506,
+        title: "Controle de Tom em Overdrives",
+        description: "Moldando o som após a distorção",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [505],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Controle de Tom",
+            content: "O controle de tom geralmente vem após o clipping para moldar o som final."
+          }
+        ]
+      },
+      {
+        id: 507,
+        title: "Assimetria no Clipping",
+        description: "Criando harmônicos pares e ímpares",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [506],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Clipping Assimétrico",
+            content: "Clipping assimétrico usa diodos diferentes para criar harmônicos únicos."
+          }
+        ]
+      },
+      {
+        id: 508,
+        title: "Cascata de Estágios",
+        description: "Múltiplos estágios de ganho",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [507],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Estágios em Cascata",
+            content: "Múltiplos estágios permitem mais ganho e complexidade harmônica."
+          }
+        ]
+      },
+      {
+        id: 509,
+        title: "Tube Screamer Análise",
+        description: "Analisando o overdrive mais famoso",
+        duration: "40 min",
+        difficulty: "intermediate",
+        prerequisites: [508],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Circuito Tube Screamer",
+            content: "O TS808 usa soft clipping com diodos 1N914 e filtro passa-baixa."
+          }
+        ]
+      },
+      {
+        id: 510,
+        title: "Projeto: Tube Screamer Clone",
+        description: "Construindo o overdrive clássico",
+        duration: "50 min",
+        difficulty: "intermediate",
+        prerequisites: [509],
+        xpReward: 120,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Tube Screamer Clone",
             circuitData: {
               components: ["TL072", "Diodos 1N4148", "Resistores", "Capacitores", "Potenciômetros Drive/Tone/Level"],
-              schematic: "tubescreamer.svg",
+              schematic: "Entrada → Buffer → Ganho → Clipping → Filtro → Buffer → Saída",
               description: "Clone do famoso Ibanez Tube Screamer",
               pedalName: "TS Clone"
             }
@@ -642,7 +1075,7 @@ export const courseData: Module[] = [
     category: "components",
     difficulty: "intermediate",
     prerequisites: [5],
-    totalXP: 850,
+    totalXP: 1400,
     pedalProject: {
       name: "Booster a Transistor",
       description: "Amplificador simples com transistor",
@@ -650,27 +1083,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 9,
-        title: "Transistores BJT",
-        description: "Transistores bipolares em circuitos de áudio",
-        duration: "35 min",
+        id: 601,
+        title: "Transistores BJT Básico",
+        description: "Funcionamento de transistores bipolares",
+        duration: "30 min",
         difficulty: "intermediate",
-        prerequisites: [8],
-        xpReward: 65,
+        prerequisites: [],
+        xpReward: 70,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "Como Funcionam os Transistores",
-            content: "Transistores são componentes de três terminais: base, coletor e emissor. Podem amplificar corrente e tensão. O transistor funciona como uma 'torneira controlada' - a corrente na base controla a corrente entre coletor e emissor."
-          },
+            content: "Transistores são componentes de três terminais: base, coletor e emissor."
+          }
+        ]
+      },
+      {
+        id: 602,
+        title: "Configuração Emissor Comum",
+        description: "Amplificador básico com transistor",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [601],
+        xpReward: 60,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Emissor Comum",
+            content: "Configuração que oferece ganho de tensão e corrente."
+          }
+        ]
+      },
+      {
+        id: 603,
+        title: "Configuração Coletor Comum",
+        description: "Seguidor de emissor para buffer",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [602],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Coletor Comum",
+            content: "Configuração para alta impedância de entrada."
+          }
+        ]
+      },
+      {
+        id: 604,
+        title: "Configuração Base Comum",
+        description: "Amplificador de corrente",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [603],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Base Comum",
+            content: "Configuração para altas frequências."
+          }
+        ]
+      },
+      {
+        id: 605,
+        title: "Bias de Transistores",
+        description: "Polarização para operação linear",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [604],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Polarização",
+            content: "Bias correto é essencial para operação linear."
+          }
+        ]
+      },
+      {
+        id: 606,
+        title: "Transistores de Germânio",
+        description: "Características dos transistores vintage",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [605],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Germânio vs Silício",
+            content: "Germânio tem menor tensão de junção e mais vazamento."
+          }
+        ]
+      },
+      {
+        id: 607,
+        title: "JFETs em Pedais",
+        description: "Transistores de efeito de campo",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [606],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "JFETs",
+            content: "JFETs têm alta impedância e som mais suave."
+          }
+        ]
+      },
+      {
+        id: 608,
+        title: "MOSFETs em Áudio",
+        description: "FETs de potência em distorção",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [607],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "MOSFETs",
+            content: "MOSFETs podem simular distorção valvulada."
+          }
+        ]
+      },
+      {
+        id: 609,
+        title: "Fuzz Face Análise",
+        description: "O fuzz mais famoso com transistores",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [608],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Circuito Fuzz Face",
+            content: "Dois transistores em configuração simples mas genial."
+          }
+        ]
+      },
+      {
+        id: 610,
+        title: "Projeto: Rangemaster Booster",
+        description: "Booster clássico com transistor",
+        duration: "40 min",
+        difficulty: "intermediate",
+        prerequisites: [609],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
-            title: "Projeto: Booster Rangemaster",
+            title: "Projeto: Rangemaster Booster",
             circuitData: {
               components: ["Transistor AC128", "Resistores", "Capacitores", "Potenciômetro"],
-              schematic: "rangemaster.svg",
+              schematic: "Entrada → Capacitor → Base do Transistor → Coletor → Saída",
               description: "Booster clássico com transistor de germânio",
               pedalName: "Rangemaster Clone"
             }
@@ -686,7 +1266,7 @@ export const courseData: Module[] = [
     category: "projects",
     difficulty: "intermediate",
     prerequisites: [6],
-    totalXP: 1000,
+    totalXP: 1500,
     pedalProject: {
       name: "Fuzz Face",
       description: "O clássico fuzz de dois transistores",
@@ -694,27 +1274,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 10,
-        title: "Circuito Fuzz Face",
-        description: "Análise do fuzz mais famoso da história",
-        duration: "45 min",
+        id: 701,
+        title: "História do Fuzz",
+        description: "Como surgiu a distorção por acidente",
+        duration: "20 min",
+        difficulty: "beginner",
+        prerequisites: [],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Origem do Fuzz",
+            content: "O fuzz nasceu por acidente em gravações dos anos 50."
+          }
+        ]
+      },
+      {
+        id: 702,
+        title: "Fuzz Face Circuito",
+        description: "Análise completa do circuito",
+        duration: "40 min",
         difficulty: "intermediate",
-        prerequisites: [9],
-        xpReward: 80,
+        prerequisites: [701],
+        xpReward: 90,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "A Magia do Fuzz Face",
-            content: "O Fuzz Face usa apenas dois transistores em uma configuração simples mas genial. O primeiro transistor amplifica o sinal, o segundo adiciona mais ganho e distorção. O segredo está no bias correto e na interação entre os transistores."
-          },
+            content: "Dois transistores em configuração que cria distorção única."
+          }
+        ]
+      },
+      {
+        id: 703,
+        title: "Bias no Fuzz Face",
+        description: "Ajustando para o som perfeito",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [702],
+        xpReward: 70,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Ajuste de Bias",
+            content: "O bias correto é crucial para o som do Fuzz Face."
+          }
+        ]
+      },
+      {
+        id: 704,
+        title: "Big Muff Circuito",
+        description: "O sustain infinito russo",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [703],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Big Muff Pi",
+            content: "Quatro estágios para sustain e volume imensos."
+          }
+        ]
+      },
+      {
+        id: 705,
+        title: "Tonebender Mk2",
+        description: "O fuzz britânico dos anos 60",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [704],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Tonebender",
+            content: "Três transistores para o som britânico clássico."
+          }
+        ]
+      },
+      {
+        id: 706,
+        title: "Octavia/Green Ringer",
+        description: "Fuzz com oitava acima",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [705],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Octave Fuzz",
+            content: "Ring modulator adiciona oitava ao fuzz."
+          }
+        ]
+      },
+      {
+        id: 707,
+        title: "Superfuzz/FZ-2",
+        description: "Fuzz com múltiplas oitavas",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [706],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Super Fuzz",
+            content: "Múltiplos flip-flops criam harmônicos únicos."
+          }
+        ]
+      },
+      {
+        id: 708,
+        title: "Fuzz Factory Análise",
+        description: "Fuzz moderno com controles únicos",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [707],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Fuzz Factory",
+            content: "Controles interativos para sons experimentais."
+          }
+        ]
+      },
+      {
+        id: 709,
+        title: "Modificações em Fuzz",
+        description: "Customizando seu fuzz",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [708],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Mods Comuns",
+            content: "Capacitores de input, resistores de bias, switches."
+          }
+        ]
+      },
+      {
+        id: 710,
+        title: "Projeto: Fuzz Face Clone",
+        description: "Construindo o fuzz lendário",
+        duration: "50 min",
+        difficulty: "intermediate",
+        prerequisites: [709],
+        xpReward: 120,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Fuzz Face Clone",
             circuitData: {
               components: ["2x Transistores AC128", "Resistores", "Capacitores", "Potenciômetros Volume/Fuzz"],
-              schematic: "fuzzface.svg",
+              schematic: "Entrada → Q1 (Amplificador) → Q2 (Saturação) → Saída",
               description: "Fuzz clássico de dois transistores",
               pedalName: "Fuzz Face Clone"
             }
@@ -730,7 +1457,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [7],
-    totalXP: 1200,
+    totalXP: 1800,
     pedalProject: {
       name: "Analog Delay",
       description: "Delay analógico com bucket brigade",
@@ -738,27 +1465,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 11,
+        id: 801,
         title: "Princípios do Delay",
-        description: "Como funcionam os delays analógicos",
-        duration: "50 min",
+        description: "Como funciona o atraso de sinal",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Conceito de Delay",
+            content: "Delay é a repetição do sinal original após um tempo determinado."
+          }
+        ]
+      },
+      {
+        id: 802,
+        title: "Bucket Brigade Devices",
+        description: "BBDs para delay analógico",
+        duration: "40 min",
         difficulty: "advanced",
-        prerequisites: [10],
+        prerequisites: [801],
         xpReward: 90,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "Bucket Brigade Devices",
-            content: "BBDs são chips especiais que criam delay analógico transferindo o sinal através de uma cadeia de capacitores. O tempo de delay depende da frequência de clock. Quanto menor a frequência, maior o delay, mas menor a qualidade."
-          },
+            title: "BBD Chips",
+            content: "BBDs transferem o sinal através de capacitores em série."
+          }
+        ]
+      },
+      {
+        id: 803,
+        title: "Clock para BBD",
+        description: "Gerando o clock de controle",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [802],
+        xpReward: 80,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Circuito de Clock",
+            content: "Oscilador controla a velocidade do BBD."
+          }
+        ]
+      },
+      {
+        id: 804,
+        title: "Filtragem em Delays",
+        description: "Removendo artefatos do BBD",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [803],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Filtros Anti-Aliasing",
+            content: "Filtros remove ruído de clock e aliasing."
+          }
+        ]
+      },
+      {
+        id: 805,
+        title: "Feedback em Delays",
+        description: "Criando repetições múltiplas",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [804],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Controle de Feedback",
+            content: "Feedback determina quantas repetições ocorrem."
+          }
+        ]
+      },
+      {
+        id: 806,
+        title: "Mix Wet/Dry",
+        description: "Balanceando sinal direto e delay",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [805],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Controle de Mix",
+            content: "Mix controla a proporção entre sinal original e delay."
+          }
+        ]
+      },
+      {
+        id: 807,
+        title: "DM-2 Boss Análise",
+        description: "Delay analógico clássico",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [806],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Boss DM-2",
+            content: "MN3005 BBD com circuito de companding."
+          }
+        ]
+      },
+      {
+        id: 808,
+        title: "Memory Man Análise",
+        description: "Delay com chorus integrado",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [807],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Deluxe Memory Man",
+            content: "Delay com vibrato e chorus modulado."
+          }
+        ]
+      },
+      {
+        id: 809,
+        title: "Reverb por Springs",
+        description: "Reverb mecânico clássico",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [808],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Spring Reverb",
+            content: "Molas criam reverberação natural."
+          }
+        ]
+      },
+      {
+        id: 810,
+        title: "Projeto: Analog Delay",
+        description: "Delay BBD completo",
+        duration: "60 min",
+        difficulty: "advanced",
+        prerequisites: [809],
+        xpReward: 150,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: DM-2 Clone",
             circuitData: {
               components: ["MN3005", "MN3101", "TL072", "Resistores", "Capacitores", "Potenciômetros"],
-              schematic: "dm2_delay.svg",
+              schematic: "Entrada → BBD → Filtro → Mix → Saída, com Clock e Feedback",
               description: "Clone do Boss DM-2 Delay",
               pedalName: "Analog Delay"
             }
@@ -774,7 +1648,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [8],
-    totalXP: 1100,
+    totalXP: 1700,
     pedalProject: {
       name: "Analog Chorus",
       description: "Chorus analógico clássico",
@@ -782,27 +1656,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 12,
-        title: "LFO e Modulação",
-        description: "Osciladores de baixa frequência em efeitos",
-        duration: "45 min",
-        difficulty: "advanced",
-        prerequisites: [11],
-        xpReward: 85,
+        id: 901,
+        title: "Teoria da Modulação",
+        description: "Como funciona a modulação de delay",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [],
+        xpReward: 70,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "Como Funciona o Chorus",
-            content: "Chorus mistura o sinal original com uma versão atrasada e modulada. Um LFO (Low Frequency Oscillator) varia o tempo de delay continuamente, criando o efeito de múltiplas vozes."
-          },
+            title: "Modulação de Delay",
+            content: "Variação contínua do tempo de delay cria efeitos espaciais."
+          }
+        ]
+      },
+      {
+        id: 902,
+        title: "LFO - Low Frequency Oscillator",
+        description: "Gerando modulação lenta",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [901],
+        xpReward: 80,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Circuitos LFO",
+            content: "LFO varia o clock do BBD criando modulação."
+          }
+        ]
+      },
+      {
+        id: 903,
+        title: "Chorus vs Vibrato",
+        description: "Diferenças entre os efeitos",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [902],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Chorus vs Vibrato",
+            content: "Chorus mistura sinal direto, vibrato só modulado."
+          }
+        ]
+      },
+      {
+        id: 904,
+        title: "CE-1 Boss Análise",
+        description: "O primeiro chorus comercial",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [903],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Boss CE-1",
+            content: "Primeiro chorus comercial com preamp integrado."
+          }
+        ]
+      },
+      {
+        id: 905,
+        title: "CE-2 Boss Análise",
+        description: "Chorus compacto que mudou tudo",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [904],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Boss CE-2",
+            content: "MN3007 BBD com LFO triangular."
+          }
+        ]
+      },
+      {
+        id: 906,
+        title: "Small Clone Análise",
+        description: "Chorus simples mas efetivo",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [905],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "EHX Small Clone",
+            content: "Circuito simples com som distintivo."
+          }
+        ]
+      },
+      {
+        id: 907,
+        title: "Flanger vs Chorus",
+        description: "Diferenças nos tempos de delay",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [906],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Flanger",
+            content: "Flanger usa delays mais curtos que chorus."
+          }
+        ]
+      },
+      {
+        id: 908,
+        title: "Controles de Chorus",
+        description: "Rate, Depth e Mix explicados",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [907],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Controles",
+            content: "Rate=velocidade, Depth=intensidade, Mix=proporção."
+          }
+        ]
+      },
+      {
+        id: 909,
+        title: "Stereo Chorus",
+        description: "Chorus estéreo para amplificação dupla",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [908],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Efeito Estéreo",
+            content: "Duas saídas com fases opostas criam espacialidade."
+          }
+        ]
+      },
+      {
+        id: 910,
+        title: "Projeto: CE-2 Chorus Clone",
+        description: "Chorus analógico completo",
+        duration: "55 min",
+        difficulty: "advanced",
+        prerequisites: [909],
+        xpReward: 140,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: CE-2 Chorus",
             circuitData: {
               components: ["MN3007", "TL022", "LFO Circuit", "Resistores", "Capacitores"],
-              schematic: "ce2_chorus.svg",
+              schematic: "Entrada → BBD com LFO → Mix com sinal direto → Saída",
               description: "Clone do Boss CE-2 Chorus",
               pedalName: "Analog Chorus"
             }
@@ -818,7 +1839,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [9],
-    totalXP: 1000,
+    totalXP: 1600,
     pedalProject: {
       name: "Cry Baby Wah",
       description: "O wah mais famoso do mundo",
@@ -826,27 +1847,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 13,
-        title: "Circuito Wah-Wah",
-        description: "Filtros variáveis com indutor",
-        duration: "40 min",
-        difficulty: "advanced",
-        prerequisites: [12],
-        xpReward: 75,
+        id: 1001,
+        title: "Teoria do Wah-Wah",
+        description: "Como funciona o filtro variável",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [],
+        xpReward: 70,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "Filtro com Indutor",
-            content: "O wah usa um indutor e um potenciômetro para criar um filtro passa-banda variável. Quando o pedal se move, muda a frequência de ressonância do filtro, criando o som característico 'wah'."
-          },
+            title: "Filtro Passa-Banda Variável",
+            content: "Wah varia a frequência central de um filtro passa-banda."
+          }
+        ]
+      },
+      {
+        id: 1002,
+        title: "Indutores em Wahs",
+        description: "O coração do circuito wah",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [1001],
+        xpReward: 80,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Indutor no Wah",
+            content: "Indutor e potenciômetro criam filtro ressonante."
+          }
+        ]
+      },
+      {
+        id: 1003,
+        title: "Cry Baby Original",
+        description: "Análise do wah mais famoso",
+        duration: "40 min",
+        difficulty: "intermediate",
+        prerequisites: [1002],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Circuito Cry Baby",
+            content: "Transistor 2N5089 com indutor e pot especial."
+          }
+        ]
+      },
+      {
+        id: 1004,
+        title: "Vox V846 vs Dunlop",
+        description: "Diferenças entre os wahs clássicos",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1003],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "V846 vs Cry Baby",
+            content: "Vox usa indutor menor, som mais nasal."
+          }
+        ]
+      },
+      {
+        id: 1005,
+        title: "Auto-Wah/Envelope Filter",
+        description: "Wah controlado por dinâmica",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1004],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Envelope Filter",
+            content: "Detector de envelope controla frequência do filtro."
+          }
+        ]
+      },
+      {
+        id: 1006,
+        title: "Mutron III Análise",
+        description: "O auto-wah que definiu o funk",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1005],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Mutron III",
+            content: "Filtro passa-banda com envelope detector."
+          }
+        ]
+      },
+      {
+        id: 1007,
+        title: "Talk Box Funcionamento",
+        description: "Modulação vocal do som",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1006],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Talk Box",
+            content: "Driver de compressão modula som através da boca."
+          }
+        ]
+      },
+      {
+        id: 1008,
+        title: "Modificações em Wahs",
+        description: "Customizando seu wah",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1007],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Mods Comuns",
+            content: "True bypass, vocal/tight switch, range pot."
+          }
+        ]
+      },
+      {
+        id: 1009,
+        title: "Wah de Baixo",
+        description: "Adaptações para baixo elétrico",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [1008],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Bass Wah",
+            content: "Componentes ajustados para frequências graves."
+          }
+        ]
+      },
+      {
+        id: 1010,
+        title: "Projeto: Cry Baby Clone",
+        description: "Construindo o wah clássico",
+        duration: "45 min",
+        difficulty: "intermediate",
+        prerequisites: [1009],
+        xpReward: 110,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Cry Baby Clone",
             circuitData: {
               components: ["Indutor", "Transistor 2N5089", "Potenciômetro", "Resistores", "Capacitores"],
-              schematic: "crybaby_wah.svg",
+              schematic: "Entrada → Indutor + Pot (filtro) → Transistor (buffer) → Saída",
               description: "Clone do Dunlop Cry Baby",
               pedalName: "Wah-Wah"
             }
@@ -862,7 +2030,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [10],
-    totalXP: 1150,
+    totalXP: 1700,
     pedalProject: {
       name: "Orange Squeezer",
       description: "Compressor ótico clássico",
@@ -870,27 +2038,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 14,
+        id: 1101,
         title: "Teoria da Compressão",
-        description: "Como funcionam os compressores",
-        duration: "50 min",
-        difficulty: "advanced",
-        prerequisites: [13],
-        xpReward: 95,
+        description: "Controle automático de dinâmica",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [],
+        xpReward: 80,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "VCA e Compressão",
-            content: "Compressores usam VCAs (Voltage Controlled Amplifiers) para reduzir automaticamente o ganho quando o sinal está alto. Isso nivela a dinâmica, tornando sons baixos mais audíveis e altos mais controlados."
-          },
+            title: "O que é Compressão",
+            content: "Compressão reduz a diferença entre sons altos e baixos."
+          }
+        ]
+      },
+      {
+        id: 1102,
+        title: "VCA - Voltage Controlled Amplifier",
+        description: "Amplificador controlado por tensão",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1101],
+        xpReward: 70,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "VCA Chips",
+            content: "VCAs como CA3080 controlam ganho eletronicamente."
+          }
+        ]
+      },
+      {
+        id: 1103,
+        title: "Compressor Ótico",
+        description: "LED/LDR para compressão suave",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [1102],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Opto-Compressor",
+            content: "LED+LDR criam compressão musical e suave."
+          }
+        ]
+      },
+      {
+        id: 1104,
+        title: "MXR Dyna Comp",
+        description: "Compressor com CA3080",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [1103],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Dyna Comp",
+            content: "CA3080 VCA com detector de envelope."
+          }
+        ]
+      },
+      {
+        id: 1105,
+        title: "Orange Squeezer",
+        description: "Compressor ótico clássico",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [1104],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Orange Squeezer",
+            content: "JFET controlado por opto-isolador."
+          }
+        ]
+      },
+      {
+        id: 1106,
+        title: "Ross Compressor",
+        description: "Compressor ótico melhorado",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [1105],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Ross Compressor",
+            content: "Melhorias no Orange Squeezer original."
+          }
+        ]
+      },
+      {
+        id: 1107,
+        title: "Compressor de Tubo",
+        description: "Compressão valvulada vintage",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1106],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Tube Compressor",
+            content: "Válvulas como elemento de controle de ganho."
+          }
+        ]
+      },
+      {
+        id: 1108,
+        title: "Controles de Compressor",
+        description: "Threshold, Ratio, Attack, Release",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1107],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Parâmetros",
+            content: "Threshold=limiar, Ratio=proporção, Attack/Release=tempo."
+          }
+        ]
+      },
+      {
+        id: 1109,
+        title: "Limitador vs Compressor",
+        description: "Diferenças na aplicação",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [1108],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Limiter",
+            content: "Limitador é compressor com ratio alto (∞:1)."
+          }
+        ]
+      },
+      {
+        id: 1110,
+        title: "Projeto: Dyna Comp Clone",
+        description: "Compressor VCA completo",
+        duration: "50 min",
+        difficulty: "advanced",
+        prerequisites: [1109],
+        xpReward: 120,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Dyna Comp Clone",
             circuitData: {
               components: ["CA3080", "Resistores", "Capacitores", "LED", "LDR"],
-              schematic: "dynacomp.svg",
+              schematic: "Entrada → VCA → Saída, com Detector de Envelope controlando VCA",
               description: "Clone do MXR Dyna Comp",
               pedalName: "Compressor"
             }
@@ -906,7 +2221,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [11],
-    totalXP: 1200,
+    totalXP: 1800,
     pedalProject: {
       name: "Phase 90",
       description: "Phaser de 4 estágios clássico",
@@ -914,27 +2229,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 15,
-        title: "All-Pass Filters",
-        description: "Filtros que alteram fase sem afetar amplitude",
-        duration: "55 min",
-        difficulty: "advanced",
-        prerequisites: [14],
-        xpReward: 100,
+        id: 1201,
+        title: "Teoria de Fase",
+        description: "Entendendo cancelamento e reforço",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [],
+        xpReward: 80,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "Cancelamento de Fase",
-            content: "Phasers usam filtros all-pass que mudam a fase do sinal sem alterar a amplitude. Quando misturados com o sinal original, certas frequências se cancelam, criando o efeito 'swoosh' característico."
-          },
+            content: "Sinais fora de fase se cancelam, em fase se reforçam."
+          }
+        ]
+      },
+      {
+        id: 1202,
+        title: "All-Pass Filters",
+        description: "Filtros que alteram só a fase",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [1201],
+        xpReward: 90,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Filtros All-Pass",
+            content: "Mantêm amplitude, mudam fase de frequências específicas."
+          }
+        ]
+      },
+      {
+        id: 1203,
+        title: "JFET como Resistor Variável",
+        description: "Controlando filtros com JFETs",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1202],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "JFET Variable Resistor",
+            content: "Tensão no gate controla resistência drain-source."
+          }
+        ]
+      },
+      {
+        id: 1204,
+        title: "MXR Phase 90",
+        description: "O phaser que definiu o som dos anos 70",
+        duration: "45 min",
+        difficulty: "advanced",
+        prerequisites: [1203],
+        xpReward: 100,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Phase 90",
+            content: "4 estágios all-pass com JFETs modulados por LFO."
+          }
+        ]
+      },
+      {
+        id: 1205,
+        title: "Small Stone Phaser",
+        description: "Phaser com controle de cor",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1204],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "EHX Small Stone",
+            content: "4 estágios com switch de cor (feedback)."
+          }
+        ]
+      },
+      {
+        id: 1206,
+        title: "Script vs Block Phase 90",
+        description: "Diferenças nas versões do Phase 90",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1205],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Script vs Block",
+            content: "Script usa JFETs, Block usa FETs integrados."
+          }
+        ]
+      },
+      {
+        id: 1207,
+        title: "Flanger Elétrico",
+        description: "Flanger com BBD",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [1206],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Electric Flanger",
+            content: "BBD com delay muito curto e modulação."
+          }
+        ]
+      },
+      {
+        id: 1208,
+        title: "Flanger vs Phaser",
+        description: "Diferenças técnicas e sonoras",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [1207],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Flanger vs Phaser",
+            content: "Flanger usa delay real, phaser usa deslocamento de fase."
+          }
+        ]
+      },
+      {
+        id: 1209,
+        title: "Uni-Vibe/Vibrato",
+        description: "Phaser com LFO lento",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1208],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Uni-Vibe",
+            content: "4 estágios all-pass com LFO lento e lamp+LDR."
+          }
+        ]
+      },
+      {
+        id: 1210,
+        title: "Projeto: Phase 90 Clone",
+        description: "4 estágios all-pass modulados",
+        duration: "60 min",
+        difficulty: "advanced",
+        prerequisites: [1209],
+        xpReward: 150,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Phase 90 Clone",
             circuitData: {
               components: ["4x JFETs", "TL022", "LFO", "Resistores", "Capacitores"],
-              schematic: "phase90.svg",
+              schematic: "Entrada → 4x All-Pass stages → Mix → Saída, com LFO controlando JFETs",
               description: "Clone do MXR Phase 90",
               pedalName: "4-Stage Phaser"
             }
@@ -950,7 +2412,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [12],
-    totalXP: 1300,
+    totalXP: 1600,
     pedalProject: {
       name: "Green Ringer",
       description: "Octaver analógico com diodos",
@@ -958,27 +2420,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 16,
-        title: "Multiplicação de Frequência",
-        description: "Criando oitavas com circuitos analógicos",
-        duration: "45 min",
+        id: 1301,
+        title: "Teoria do Pitch Shifting",
+        description: "Mudando a frequência fundamental",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Pitch Shifting",
+            content: "Mudar pitch sem alterar duração é complexo tecnicamente."
+          }
+        ]
+      },
+      {
+        id: 1302,
+        title: "Ring Modulation",
+        description: "Multiplicação de frequências",
+        duration: "35 min",
         difficulty: "advanced",
-        prerequisites: [15],
-        xpReward: 90,
+        prerequisites: [1301],
+        xpReward: 80,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "Ring Modulators",
-            content: "Ring modulators usam diodos para multiplicar frequências. Quando você toca uma nota, o circuito gera harmonics que incluem a oitava. É um efeito wild e não perfeitamente tracking."
-          },
+            content: "Multiplicam duas frequências gerando soma e diferença."
+          }
+        ]
+      },
+      {
+        id: 1303,
+        title: "Green Ringer Análise",
+        description: "Octaver analógico simples",
+        duration: "40 min",
+        difficulty: "intermediate",
+        prerequisites: [1302],
+        xpReward: 90,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Green Ringer",
+            content: "Ring modulator com transformador e diodos."
+          }
+        ]
+      },
+      {
+        id: 1304,
+        title: "Blue Box Octaver",
+        description: "Oitava abaixo com flip-flops",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1303],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Blue Box",
+            content: "Flip-flops dividem frequência por 2 (oitava abaixo)."
+          }
+        ]
+      },
+      {
+        id: 1305,
+        title: "Micro POG Análise",
+        description: "Octaver polifônico moderno",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1304],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "POG",
+            content: "DSP analisa harmônicos para octaver polifônico."
+          }
+        ]
+      },
+      {
+        id: 1306,
+        title: "Whammy Pedal",
+        description: "Pitch shift com pedal de expressão",
+        duration: "25 min",
+        difficulty: "advanced",
+        prerequisites: [1305],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "DigiTech Whammy",
+            content: "DSP com pedal de expressão para pitch bend."
+          }
+        ]
+      },
+      {
+        id: 1307,
+        title: "Harmonist/Intelligent Pitch",
+        description: "Harmonias automáticas",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1306],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Harmonist",
+            content: "Gera harmonias baseadas em escala selecionada."
+          }
+        ]
+      },
+      {
+        id: 1308,
+        title: "Tracking em Octavers",
+        description: "Problemas de rastreamento",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [1307],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Tracking Issues",
+            content: "Octavers analógicos têm problemas com acordes."
+          }
+        ]
+      },
+      {
+        id: 1309,
+        title: "Octaver para Baixo",
+        description: "Adaptações para baixo elétrico",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1308],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Bass Octaver",
+            content: "Componentes ajustados para frequências graves."
+          }
+        ]
+      },
+      {
+        id: 1310,
+        title: "Projeto: Green Ringer Clone",
+        description: "Octaver analógico clássico",
+        duration: "45 min",
+        difficulty: "intermediate",
+        prerequisites: [1309],
+        xpReward: 110,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Green Ringer Clone",
             circuitData: {
               components: ["4x Diodos 1N914", "Transformador", "Resistores", "Capacitores"],
-              schematic: "green_ringer.svg",
+              schematic: "Entrada → Transformador → Ring Modulator (diodos) → Saída",
               description: "Octaver com ring modulator",
               pedalName: "Octave Up"
             }
@@ -994,7 +2603,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "intermediate",
     prerequisites: [13],
-    totalXP: 950,
+    totalXP: 1400,
     pedalProject: {
       name: "Optical Tremolo",
       description: "Tremolo ótico suave",
@@ -1002,27 +2611,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 17,
-        title: "LDR e Modulação Ótica",
-        description: "Usando fotoresistores para modulação",
-        duration: "35 min",
-        difficulty: "intermediate",
-        prerequisites: [16],
-        xpReward: 70,
+        id: 1401,
+        title: "Tremolo vs Vibrato",
+        description: "Modulação de amplitude vs frequência",
+        duration: "25 min",
+        difficulty: "beginner",
+        prerequisites: [],
+        xpReward: 60,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "Tremolo vs Vibrato",
-            content: "Tremolo modula a amplitude (volume), vibrato modula a frequência (pitch). Muitos pedais chamados 'vibrato' são na verdade tremolo. O tremolo ótico usa LED+LDR para modulação suave e musical."
-          },
+            content: "Tremolo modula amplitude (volume), vibrato modula frequência (pitch)."
+          }
+        ]
+      },
+      {
+        id: 1402,
+        title: "Tremolo Ótico",
+        description: "LED/LDR para modulação suave",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [1401],
+        xpReward: 80,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Opto-Tremolo",
+            content: "LED+LDR modulados por LFO criam tremolo suave."
+          }
+        ]
+      },
+      {
+        id: 1403,
+        title: "Tremolo com VCA",
+        description: "Modulação por tensão",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [1402],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "VCA Tremolo",
+            content: "VCA controlado por LFO para tremolo preciso."
+          }
+        ]
+      },
+      {
+        id: 1404,
+        title: "Tremolo Valvulado",
+        description: "Tremolo em amplificadores vintage",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1403],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Tube Tremolo",
+            content: "Válvula modulada por LFO em amps vintage."
+          }
+        ]
+      },
+      {
+        id: 1405,
+        title: "Boss PN-2 Tremolo/Pan",
+        description: "Tremolo estéreo com pan",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [1404],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Tremolo/Pan",
+            content: "Duas saídas com LFOs opostos criam pan automático."
+          }
+        ]
+      },
+      {
+        id: 1406,
+        title: "EA Tremolo",
+        description: "Tremolo com múltiplas ondas",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1405],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Multi-Wave Tremolo",
+            content: "Seleção entre ondas senoidal, quadrada, triangular."
+          }
+        ]
+      },
+      {
+        id: 1407,
+        title: "Vibrato Analógico",
+        description: "Modulação de pitch real",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1406],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "True Vibrato",
+            content: "BBD modulado cria vibrato real (pitch)."
+          }
+        ]
+      },
+      {
+        id: 1408,
+        title: "Chopito/Stutter",
+        description: "Tremolo extremo tipo gate",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [1407],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Chopito Effect",
+            content: "Tremolo com onda quadrada cria efeito stutter."
+          }
+        ]
+      },
+      {
+        id: 1409,
+        title: "Harmonic Tremolo",
+        description: "Tremolo em diferentes frequências",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1408],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Harmonic Tremolo",
+            content: "Separa graves e agudos, modula alternadamente."
+          }
+        ]
+      },
+      {
+        id: 1410,
+        title: "Projeto: Tremolo Ótico",
+        description: "Tremolo suave com fotoresistor",
+        duration: "40 min",
+        difficulty: "intermediate",
+        prerequisites: [1409],
+        xpReward: 100,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Tremolo Ótico",
             circuitData: {
               components: ["TL072", "LED", "LDR", "LFO Circuit", "Resistores", "Capacitores"],
-              schematic: "optical_tremolo.svg",
+              schematic: "Entrada → Divisor com LDR → Saída, LED modulado por LFO",
               description: "Tremolo suave com fotoresistor",
               pedalName: "Optical Tremolo"
             }
@@ -1038,7 +2794,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [14],
-    totalXP: 1100,
+    totalXP: 1500,
     pedalProject: {
       name: "Frequency Analyzer",
       description: "Ring modulator com oscilador interno",
@@ -1046,27 +2802,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 18,
+        id: 1501,
         title: "Ring Modulation Theory",
-        description: "Modulação em anel para efeitos robóticos",
-        duration: "40 min",
+        description: "Multiplicação de sinais",
+        duration: "35 min",
         difficulty: "advanced",
-        prerequisites: [17],
+        prerequisites: [],
         xpReward: 80,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "Soma e Diferença de Frequências",
-            content: "Ring modulators multiplicam duas frequências, criando a soma e diferença delas. Isso gera sons harmônicos complexos, metálicos e robóticos. É usado em sons de sci-fi e efeitos experimentais."
-          },
+            title: "Ring Modulation",
+            content: "Multiplicação de dois sinais gera soma e diferença das frequências."
+          }
+        ]
+      },
+      {
+        id: 1502,
+        title: "Diode Ring",
+        description: "Ring modulator com diodos",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1501],
+        xpReward: 70,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Diode Ring",
+            content: "4 diodos em anel criam modulação balanceada."
+          }
+        ]
+      },
+      {
+        id: 1503,
+        title: "CMOS Ring Modulator",
+        description: "Ring modulator digital",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1502],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "CMOS Ring Mod",
+            content: "4066 CMOS switches fazem ring modulation digital."
+          }
+        ]
+      },
+      {
+        id: 1504,
+        title: "Frequency Analyzer",
+        description: "Ring mod com oscilador interno",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [1503],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Frequency Analyzer",
+            content: "Oscilador interno modulado com sinal da guitarra."
+          }
+        ]
+      },
+      {
+        id: 1505,
+        title: "Moogerfooger Ring Mod",
+        description: "Ring modulator profissional",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1504],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Moogerfooger",
+            content: "Ring mod com VCO e LFO integrados."
+          }
+        ]
+      },
+      {
+        id: 1506,
+        title: "Ring Mod para Efeitos Vocais",
+        description: "Sons robóticos e de sci-fi",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1505],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Robot Voice",
+            content: "Ring mod com frequência fixa cria voz robótica."
+          }
+        ]
+      },
+      {
+        id: 1507,
+        title: "AM vs Ring Modulation",
+        description: "Diferenças na modulação",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [1506],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "AM vs Ring Mod",
+            content: "AM preserva portadora, ring mod a cancela."
+          }
+        ]
+      },
+      {
+        id: 1508,
+        title: "Balanced vs Unbalanced",
+        description: "Tipos de modulação",
+        duration: "25 min",
+        difficulty: "advanced",
+        prerequisites: [1507],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Balanced Modulation",
+            content: "Modulação balanceada suprime a portadora."
+          }
+        ]
+      },
+      {
+        id: 1509,
+        title: "Tracking Ring Modulator",
+        description: "Ring mod que segue a nota",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1508],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Tracking Ring Mod",
+            content: "PLL segue frequência fundamental da guitarra."
+          }
+        ]
+      },
+      {
+        id: 1510,
+        title: "Projeto: Frequency Analyzer",
+        description: "Ring modulator completo",
+        duration: "50 min",
+        difficulty: "advanced",
+        prerequisites: [1509],
+        xpReward: 120,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Frequency Analyzer",
             circuitData: {
               components: ["4066 CMOS", "Oscilador", "Resistores", "Capacitores", "Potenciômetros"],
-              schematic: "ring_modulator.svg",
+              schematic: "Entrada + Oscilador → 4066 Switches → Filtro → Saída",
               description: "Ring modulator com oscilador ajustável",
               pedalName: "Ring Modulator"
             }
@@ -1082,7 +2985,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "intermediate",
     prerequisites: [15],
-    totalXP: 800,
+    totalXP: 1300,
     pedalProject: {
       name: "Noise Gate",
       description: "Gate para eliminar ruído",
@@ -1090,27 +2993,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 19,
-        title: "Threshold e Gating",
+        id: 1601,
+        title: "Teoria do Noise Gate",
         description: "Eliminando ruído automaticamente",
-        duration: "30 min",
+        duration: "25 min",
         difficulty: "intermediate",
-        prerequisites: [18],
+        prerequisites: [],
         xpReward: 60,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "Como Funciona um Gate",
-            content: "Um noise gate monitora o nível do sinal. Quando está abaixo do threshold, corta o som. Quando está acima, deixa passar. É essencial para eliminar ruído entre notas, especialmente com alta distorção."
-          },
+            content: "Gate monitora nível do sinal e corta quando abaixo do threshold."
+          }
+        ]
+      },
+      {
+        id: 1602,
+        title: "Detector de Envelope",
+        description: "Medindo o nível do sinal",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [1601],
+        xpReward: 70,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Envelope Detection",
+            content: "Retificador e filtro extraem envelope do sinal."
+          }
+        ]
+      },
+      {
+        id: 1603,
+        title: "Comparador para Gate",
+        description: "Decisão de abrir/fechar",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1602],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Threshold Comparator",
+            content: "Comparador decide se sinal está acima do threshold."
+          }
+        ]
+      },
+      {
+        id: 1604,
+        title: "VCA para Gating",
+        description: "Controlando o ganho",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [1603],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "VCA Gate",
+            content: "VCA controlado por detector corta o sinal."
+          }
+        ]
+      },
+      {
+        id: 1605,
+        title: "Boss NS-2 Análise",
+        description: "Noise suppressor profissional",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [1604],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Boss NS-2",
+            content: "Gate com send/return para posicionamento flexível."
+          }
+        ]
+      },
+      {
+        id: 1606,
+        title: "Gate com Hysteresis",
+        description: "Evitando oscilação no threshold",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1605],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Hysteresis",
+            content: "Dois thresholds evitam liga/desliga rápido."
+          }
+        ]
+      },
+      {
+        id: 1607,
+        title: "Attack e Release",
+        description: "Controles de tempo",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1606],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Attack/Release Times",
+            content: "Attack=tempo para abrir, Release=tempo para fechar."
+          }
+        ]
+      },
+      {
+        id: 1608,
+        title: "Gate para Baixo",
+        description: "Adaptações para baixo elétrico",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [1607],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Bass Gate",
+            content: "Threshold e filtros ajustados para graves."
+          }
+        ]
+      },
+      {
+        id: 1609,
+        title: "Sidechain Gate",
+        description: "Gate controlado por sinal externo",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1608],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Sidechain",
+            content: "Sinal externo controla gate do sinal principal."
+          }
+        ]
+      },
+      {
+        id: 1610,
+        title: "Projeto: Simple Gate",
+        description: "Gate básico mas efetivo",
+        duration: "40 min",
+        difficulty: "intermediate",
+        prerequisites: [1609],
+        xpReward: 100,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Simple Gate",
             circuitData: {
               components: ["TL072", "4066", "Comparadores", "Resistores", "Capacitores"],
-              schematic: "noise_gate.svg",
+              schematic: "Entrada → Detector → Comparador → 4066 Switch → Saída",
               description: "Gate simples com threshold ajustável",
               pedalName: "Noise Gate"
             }
@@ -1126,7 +3176,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [16],
-    totalXP: 1250,
+    totalXP: 1900,
     pedalProject: {
       name: "Moog Filter",
       description: "Filtro passa-baixa clássico",
@@ -1134,27 +3184,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 20,
+        id: 1701,
         title: "Ladder Filters",
-        description: "O filtro Moog e suas variações",
-        duration: "60 min",
+        description: "O filtro Moog transistorizado",
+        duration: "45 min",
         difficulty: "advanced",
-        prerequisites: [19],
-        xpReward: 110,
+        prerequisites: [],
+        xpReward: 100,
         steps: [
           {
             id: 1,
             type: "theory",
             title: "Transistor Ladder",
-            content: "O filtro Moog usa uma 'escada' de transistores para criar um filtro passa-baixa com resposta muito musical. Cada estágio adiciona -6dB/oitava, totalizando -24dB/oitava. O feedback controla a ressonância."
-          },
+            content: "4 transistores em 'escada' criam filtro -24dB/oitava."
+          }
+        ]
+      },
+      {
+        id: 1702,
+        title: "VCF - Voltage Controlled Filter",
+        description: "Filtro controlado por tensão",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [1701],
+        xpReward: 90,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "VCF Basics",
+            content: "Tensão de controle varia frequência de corte."
+          }
+        ]
+      },
+      {
+        id: 1703,
+        title: "Resonance/Q Factor",
+        description: "Realimentação para ressonância",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1702],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Filter Resonance",
+            content: "Feedback da saída para entrada cria ressonância."
+          }
+        ]
+      },
+      {
+        id: 1704,
+        title: "CEM3320 Filter",
+        description: "Filtro integrado Curtis",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1703],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "CEM3320",
+            content: "Chip de filtro com VCF e VCA integrados."
+          }
+        ]
+      },
+      {
+        id: 1705,
+        title: "State Variable Filter",
+        description: "Filtro com múltiplas saídas",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [1704],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "SVF Design",
+            content: "Saídas simultâneas low-pass, high-pass e band-pass."
+          }
+        ]
+      },
+      {
+        id: 1706,
+        title: "MS-20 Filter",
+        description: "Filtro Korg agressivo",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1705],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Korg MS-20",
+            content: "Filtro high-pass + low-pass com som distintivo."
+          }
+        ]
+      },
+      {
+        id: 1707,
+        title: "TB-303 Filter",
+        description: "O filtro que criou o acid house",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1706],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "TB-303 Filter",
+            content: "Filtro passa-baixa com envelope próprio."
+          }
+        ]
+      },
+      {
+        id: 1708,
+        title: "Envelope Follower Filter",
+        description: "Filtro que segue dinâmica",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1707],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Auto-Filter",
+            content: "Envelope do sinal controla frequência do filtro."
+          }
+        ]
+      },
+      {
+        id: 1709,
+        title: "Multi-Mode Filters",
+        description: "Filtros com múltiplos tipos",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1708],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Multi-Mode",
+            content: "Seleção entre low-pass, high-pass, band-pass, notch."
+          }
+        ]
+      },
+      {
+        id: 1710,
+        title: "Projeto: Moog Filter Clone",
+        description: "Filtro transistor ladder",
+        duration: "70 min",
+        difficulty: "advanced",
+        prerequisites: [1709],
+        xpReward: 180,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: Moog Filter Clone",
             circuitData: {
               components: ["4x Transistores", "Op-amps", "Resistores", "Capacitores", "Potenciômetros Cutoff/Resonance"],
-              schematic: "moog_filter.svg",
+              schematic: "Entrada → 4x Transistor Stages → Feedback → Saída",
               description: "Filtro Moog de 4 polos",
               pedalName: "Moog Filter"
             }
@@ -1170,7 +3367,7 @@ export const courseData: Module[] = [
     category: "circuits",
     difficulty: "advanced",
     prerequisites: [17],
-    totalXP: 1400,
+    totalXP: 2000,
     pedalProject: {
       name: "Step Sequencer",
       description: "Sequenciador de 8 passos",
@@ -1178,27 +3375,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 21,
+        id: 1801,
         title: "Digital Logic em Áudio",
-        description: "Contadores e multiplexers para sequências",
-        duration: "55 min",
+        description: "Contadores e multiplexers",
+        duration: "40 min",
         difficulty: "advanced",
-        prerequisites: [20],
-        xpReward: 105,
+        prerequisites: [],
+        xpReward: 90,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "Contadores e Clock",
-            content: "Sequencers usam contadores digitais que avançam com um clock. Cada passo pode ter uma tensão diferente, criando melodias automáticas. Multiplexers selecionam qual passo está ativo."
-          },
+            title: "Contadores Digitais",
+            content: "4017 e 4040 contam pulsos de clock para sequências."
+          }
+        ]
+      },
+      {
+        id: 1802,
+        title: "Clock Generation",
+        description: "Gerando pulsos de tempo",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [1801],
+        xpReward: 80,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Clock Circuits",
+            content: "555 timer ou osciladores RC geram clock estável."
+          }
+        ]
+      },
+      {
+        id: 1803,
+        title: "4017 Decade Counter",
+        description: "Contador de 10 estágios",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [1802],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "4017 Counter",
+            content: "Cada pulso ativa saída sequencial, retorna ao zero."
+          }
+        ]
+      },
+      {
+        id: 1804,
+        title: "Voltage Storage",
+        description: "Armazenando tensões de controle",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [1803],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Sample & Hold",
+            content: "Capacitores armazenam tensões, FETs fazem switching."
+          }
+        ]
+      },
+      {
+        id: 1805,
+        title: "8-Step Sequencer",
+        description: "Sequenciador básico",
+        duration: "45 min",
+        difficulty: "advanced",
+        prerequisites: [1804],
+        xpReward: 100,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "8-Step Design",
+            content: "4017 + potenciômetros criam 8 tensões diferentes."
+          }
+        ]
+      },
+      {
+        id: 1806,
+        title: "16-Step Sequencer",
+        description: "Sequências mais longas",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [1805],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "16-Step Design",
+            content: "Dois 4017 em cascata para 16 passos."
+          }
+        ]
+      },
+      {
+        id: 1807,
+        title: "Pattern Programming",
+        description: "Programando sequências",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [1806],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Programming Patterns",
+            content: "Potenciômetros ou switches programam cada passo."
+          }
+        ]
+      },
+      {
+        id: 1808,
+        title: "Reset e Length Control",
+        description: "Controlando tamanho da sequência",
+        duration: "25 min",
+        difficulty: "intermediate",
+        prerequisites: [1807],
+        xpReward: 60,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Sequence Length",
+            content: "Reset manual permite sequências de 1-8 passos."
+          }
+        ]
+      },
+      {
+        id: 1809,
+        title: "Arpeggiator Design",
+        description: "Arpejo automático de acordes",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1808],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Arpeggiator",
+            content: "Sequenciador que toca notas de acorde automaticamente."
+          }
+        ]
+      },
+      {
+        id: 1810,
+        title: "Projeto: 8-Step Sequencer",
+        description: "Sequenciador CV completo",
+        duration: "80 min",
+        difficulty: "advanced",
+        prerequisites: [1809],
+        xpReward: 200,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: 8-Step Sequencer",
             circuitData: {
               components: ["4017 Counter", "4051 Multiplexer", "Clock Circuit", "Potenciômetros", "LEDs"],
-              schematic: "step_sequencer.svg",
+              schematic: "Clock → 4017 → 4051 → Voltage Out, com Reset e Pots para cada step",
               description: "Sequenciador de 8 passos com clock ajustável",
               pedalName: "Step Sequencer"
             }
@@ -1214,7 +3558,7 @@ export const courseData: Module[] = [
     category: "advanced",
     difficulty: "advanced",
     prerequisites: [18],
-    totalXP: 1500,
+    totalXP: 2100,
     pedalProject: {
       name: "Simple Vocoder",
       description: "Vocoder básico com filtros",
@@ -1222,27 +3566,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 22,
+        id: 1901,
         title: "Análise e Síntese de Voz",
         description: "Como funcionam os vocoders",
-        duration: "65 min",
+        duration: "50 min",
         difficulty: "advanced",
-        prerequisites: [21],
+        prerequisites: [],
         xpReward: 120,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "Envelope Following",
-            content: "Vocoders analisam o envelope de um sinal de voz através de múltiplos filtros passa-banda. Cada banda controla a amplitude de uma banda correspondente em um sinal de síntese, criando voz robótica."
-          },
+            title: "Vocoder Principle",
+            content: "Análise espectral da voz controla síntese de carrier."
+          }
+        ]
+      },
+      {
+        id: 1902,
+        title: "Filter Banks",
+        description: "Bancos de filtros para análise",
+        duration: "45 min",
+        difficulty: "advanced",
+        prerequisites: [1901],
+        xpReward: 110,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Filter Bank Design",
+            content: "Múltiplos filtros passa-banda analisam voz."
+          }
+        ]
+      },
+      {
+        id: 1903,
+        title: "Envelope Following",
+        description: "Extraindo envelope de cada banda",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [1902],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Envelope Followers",
+            content: "Cada banda tem detector de envelope próprio."
+          }
+        ]
+      },
+      {
+        id: 1904,
+        title: "VCA Array",
+        description: "Controlando síntese por banda",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1903],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "VCA Control",
+            content: "Envelopes controlam VCAs de cada banda do carrier."
+          }
+        ]
+      },
+      {
+        id: 1905,
+        title: "4-Band Vocoder",
+        description: "Vocoder simples mas funcional",
+        duration: "50 min",
+        difficulty: "advanced",
+        prerequisites: [1904],
+        xpReward: 120,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "4-Band Design",
+            content: "4 bandas são mínimo para inteligibilidade."
+          }
+        ]
+      },
+      {
+        id: 1906,
+        title: "8-Band Vocoder",
+        description: "Vocoder de qualidade profissional",
+        duration: "45 min",
+        difficulty: "advanced",
+        prerequisites: [1905],
+        xpReward: 110,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "8-Band Design",
+            content: "8 bandas oferecem melhor inteligibilidade."
+          }
+        ]
+      },
+      {
+        id: 1907,
+        title: "Carrier Oscillators",
+        description: "Gerando portadoras",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [1906],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Carrier Generation",
+            content: "Osciladores ou ruído branco como carrier."
+          }
+        ]
+      },
+      {
+        id: 1908,
+        title: "EMS Vocoder 2000",
+        description: "Vocoder clássico dos anos 70",
+        duration: "35 min",
+        difficulty: "advanced",
+        prerequisites: [1907],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "EMS 2000",
+            content: "22 bandas com formant synthesis."
+          }
+        ]
+      },
+      {
+        id: 1909,
+        title: "Talk Box vs Vocoder",
+        description: "Diferenças técnicas",
+        duration: "20 min",
+        difficulty: "intermediate",
+        prerequisites: [1908],
+        xpReward: 50,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Talk Box vs Vocoder",
+            content: "Talk box usa boca física, vocoder é eletrônico."
+          }
+        ]
+      },
+      {
+        id: 1910,
+        title: "Projeto: 4-Band Vocoder",
+        description: "Vocoder básico funcional",
+        duration: "90 min",
+        difficulty: "advanced",
+        prerequisites: [1909],
+        xpReward: 220,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: 4-Band Vocoder",
             circuitData: {
               components: ["Múltiplos Op-amps", "Filtros passa-banda", "Envelope Followers", "VCAs"],
-              schematic: "vocoder.svg",
+              schematic: "Voz → 4x Filters → 4x Envelopes → 4x VCAs → Sum → Saída",
               description: "Vocoder simples de 4 bandas",
               pedalName: "Vocoder"
             }
@@ -1258,7 +3749,7 @@ export const courseData: Module[] = [
     category: "advanced",
     difficulty: "advanced",
     prerequisites: [19],
-    totalXP: 2000,
+    totalXP: 2500,
     pedalProject: {
       name: "Multi-Effects Processor",
       description: "Processador com 8 efeitos diferentes",
@@ -1266,27 +3757,174 @@ export const courseData: Module[] = [
     },
     lessons: [
       {
-        id: 23,
-        title: "System Design",
-        description: "Integrando múltiplos efeitos",
-        duration: "90 min",
+        id: 2001,
+        title: "System Design Principles",
+        description: "Planejando sistema complexo",
+        duration: "45 min",
         difficulty: "advanced",
-        prerequisites: [22],
-        xpReward: 150,
+        prerequisites: [],
+        xpReward: 110,
         steps: [
           {
             id: 1,
             type: "theory",
-            title: "Signal Routing e Switching",
-            content: "Multi-efeitos precisam de sistema de roteamento complexo. Switches analógicos controlam o caminho do sinal. Buffers isolam cada efeito. Microcontroladores podem automatizar o switching."
-          },
+            title: "System Architecture",
+            content: "Planejamento é crucial para sistemas complexos."
+          }
+        ]
+      },
+      {
+        id: 2002,
+        title: "Signal Routing",
+        description: "Roteamento flexível de sinal",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [2001],
+        xpReward: 100,
+        steps: [
           {
-            id: 2,
+            id: 1,
+            type: "theory",
+            title: "Signal Routing",
+            content: "Switches analógicos permitem roteamento flexível."
+          }
+        ]
+      },
+      {
+        id: 2003,
+        title: "Effect Switching",
+        description: "Chaveamento entre efeitos",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [2002],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Analog Switching",
+            content: "4066, 4051, 4052 fazem switching de áudio."
+          }
+        ]
+      },
+      {
+        id: 2004,
+        title: "Buffering Stages",
+        description: "Isolamento entre efeitos",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [2003],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Buffer Stages",
+            content: "Buffers isolam cada efeito dos outros."
+          }
+        ]
+      },
+      {
+        id: 2005,
+        title: "Power Distribution",
+        description: "Alimentação para múltiplos circuitos",
+        duration: "30 min",
+        difficulty: "intermediate",
+        prerequisites: [2004],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Power Supply Design",
+            content: "Fonte robusta com filtragem adequada."
+          }
+        ]
+      },
+      {
+        id: 2006,
+        title: "Digital Control",
+        description: "Microcontrolador para automação",
+        duration: "50 min",
+        difficulty: "advanced",
+        prerequisites: [2005],
+        xpReward: 120,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "MCU Control",
+            content: "Arduino ou PIC controla switches e parâmetros."
+          }
+        ]
+      },
+      {
+        id: 2007,
+        title: "User Interface",
+        description: "Controles e display",
+        duration: "35 min",
+        difficulty: "intermediate",
+        prerequisites: [2006],
+        xpReward: 80,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "UI Design",
+            content: "LCD, encoders e footswitches para controle."
+          }
+        ]
+      },
+      {
+        id: 2008,
+        title: "Preset Management",
+        description: "Salvando e carregando configurações",
+        duration: "30 min",
+        difficulty: "advanced",
+        prerequisites: [2007],
+        xpReward: 70,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Preset System",
+            content: "EEPROM armazena configurações de efeitos."
+          }
+        ]
+      },
+      {
+        id: 2009,
+        title: "MIDI Implementation",
+        description: "Controle MIDI externo",
+        duration: "40 min",
+        difficulty: "advanced",
+        prerequisites: [2008],
+        xpReward: 90,
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "MIDI Control",
+            content: "MIDI permite controle remoto de parâmetros."
+          }
+        ]
+      },
+      {
+        id: 2010,
+        title: "Projeto: Multi-FX Processor",
+        description: "Unidade completa de efeitos",
+        duration: "120 min",
+        difficulty: "advanced",
+        prerequisites: [2009],
+        xpReward: 300,
+        steps: [
+          {
+            id: 1,
             type: "circuit",
             title: "Projeto: 8-FX Processor",
             circuitData: {
               components: ["Múltiplos CIs", "Switches analógicos", "Microcontrolador", "LCD", "Footswitches"],
-              schematic: "multi_fx.svg",
+              schematic: "Entrada → Router → 8x Efeitos → Mixer → Saída, MCU controla tudo",
               description: "Processador com overdrive, delay, chorus, reverb, EQ, compressor, gate e boost",
               pedalName: "Multi-FX Unit"
             }
