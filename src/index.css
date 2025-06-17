@@ -6,6 +6,16 @@
 @layer base {
   :root {
     --radius: 0.75rem;
+    
+    /* Color palette based on https://colorhunt.co/palette/3334467f8caab8cfceeaefef */
+    --background: 234 235 239; /* #eaefef */
+    --foreground: 51 52 70; /* #333446 */
+    --primary: 51 52 70; /* #333446 */
+    --secondary: 127 140 170; /* #7f8caa */
+    --accent: 184 207 206; /* #b8cfce */
+    --border: 184 207 206; /* #b8cfce */
+    --muted: 234 235 239; /* #eaefef */
+    --muted-foreground: 127 140 170; /* #7f8caa */
   }
 
   * {
@@ -18,7 +28,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    @apply font-semibold;
   }
 }
 
@@ -41,5 +51,20 @@
   
   .achievement-badge {
     @apply bg-gradient-to-br from-accent to-secondary/50 p-4 rounded-xl text-center hover:scale-105 transition-transform;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
