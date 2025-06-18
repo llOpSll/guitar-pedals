@@ -120,6 +120,60 @@ export const LessonView: React.FC<LessonViewProps> = ({
     }
   };
 
+  const renderCircuitStep = (stepData: any) => {
+    return (
+      <div className="space-y-6">
+        <div className="bg-accent/10 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-primary mb-4">
+            Projeto: {stepData.circuitData.pedalName}
+          </h3>
+          <p className="text-secondary mb-4">{stepData.circuitData.description}</p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-semibold text-primary mb-3">Componentes:</h4>
+              <ul className="space-y-2">
+                {stepData.circuitData.components.map((component: string, index: number) => (
+                  <li key={index} className="flex items-center space-x-2 text-secondary">
+                    <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                    <span>{component}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="bg-white rounded-lg p-4 border border-accent/20">
+              <h4 className="font-semibold text-primary mb-3">Esquemático:</h4>
+              {stepData.circuitData.schematic ? (
+                <div className="space-y-3">
+                  <div className="w-full h-48 bg-accent/10 rounded-lg flex items-center justify-center">
+                    <span className="text-secondary text-center">
+                      Diagrama: {stepData.circuitData.pedalName}
+                      <br />
+                      <small>Veja referência abaixo</small>
+                    </span>
+                  </div>
+                  <a 
+                    href={stepData.circuitData.schematic} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 text-secondary hover:text-primary transition-colors text-sm"
+                  >
+                    <span>🔗 Ver esquemático completo</span>
+                  </a>
+                </div>
+              ) : (
+                <div className="w-full h-48 bg-accent/10 rounded-lg flex items-center justify-center">
+                  <span className="text-secondary">Esquemático em desenvolvimento</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
       {/* Header */}
@@ -178,35 +232,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
             </div>
           </div>
         ) : currentStepData.type === "circuit" && currentStepData.circuitData ? (
-          <div className="space-y-6">
-            <div className="bg-accent/10 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-primary mb-4">
-                Projeto: {currentStepData.circuitData.pedalName || "Circuito"}
-              </h3>
-              <p className="text-secondary mb-4">{currentStepData.circuitData.description}</p>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-primary mb-3">Componentes Necessários:</h4>
-                  <ul className="space-y-2">
-                    {currentStepData.circuitData.components.map((component, index) => (
-                      <li key={index} className="flex items-center space-x-2 text-secondary">
-                        <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                        <span>{component}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="bg-white rounded-lg p-4 border border-accent/20">
-                  <h4 className="font-semibold text-primary mb-3">Esquema do Circuito:</h4>
-                  <div className="w-full h-48 bg-accent/10 rounded-lg flex items-center justify-center">
-                    <span className="text-secondary">Diagrama do {currentStepData.circuitData.pedalName}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          renderCircuitStep(currentStepData)
         ) : currentStepData.type === "exercise" && currentStepData.questions ? (
           <div className="space-y-8">
             {currentStepData.questions.map((question, qIndex) => (
@@ -342,10 +368,10 @@ export const LessonView: React.FC<LessonViewProps> = ({
       <div className="flex justify-between">
         <button
           onClick={handleRestart}
-          className="flex items-center space-x-2 px-4 py-2 text-secondary hover:text-primary transition-colors"
+          className="flex items-center space-x-2 px-4 py-2 text-secondary hover:text-primary transition-colors border border-secondary/30 rounded-lg hover:border-secondary hover:bg-secondary/10"
         >
           <RotateCcw className="w-4 h-4" />
-          <span>Reiniciar</span>
+          <span>Reiniciar Lição</span>
         </button>
         
         <button

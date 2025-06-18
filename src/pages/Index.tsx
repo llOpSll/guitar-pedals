@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Header } from '../components/Header';
 import { Dashboard } from '../components/Dashboard';
@@ -9,6 +8,8 @@ import { SettingsView } from '../components/SettingsView';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegisterForm } from '../components/auth/RegisterForm';
 import { LocalStorageManager, UserData, UserProgress } from '../utils/storage';
+import { PracticeMode } from '../components/PracticeMode';
+import { updateUserProgress } from '../utils/progressValidation';
 
 export type ViewType = 'dashboard' | 'module' | 'lesson' | 'profile' | 'settings';
 export type AuthView = 'login' | 'register';
@@ -38,6 +39,10 @@ const Index = () => {
       lastStudyDate: '',
       lessonProgress: {}
     }
+  });
+  const [practiceMode, setPracticeMode] = useState<{ active: boolean; moduleId?: number }>({
+    active: false,
+    moduleId: undefined
   });
 
   // Check for existing user session on mount
@@ -121,6 +126,15 @@ const Index = () => {
     setAppState(prev => ({ ...prev, userProgress: newProgress }));
   };
 
+  const handleLessonComplete = (moduleId: number, lessonId: number) => {
+    const updatedProgress = updateUserProgress(appState.userProgress, moduleId, lessonId);
+    updateProgress(updatedProgress);
+  };
+
+  const handlePracticeMode = (moduleId: number) => {
+    setPracticeMode({ active: true, moduleId });
+  };
+
   const updateUser = (updatedUser: UserData) => {
     setUser(updatedUser);
     LocalStorageManager.setCurrentUser(updatedUser);
@@ -146,6 +160,17 @@ const Index = () => {
   }
 
   const renderCurrentView = () => {
+    if (practiceMode.active && practiceMode.moduleId) {
+      return (
+        <PracticeMode
+          moduleId={practiceMode.moduleId}
+          onBack={() => setPracticeMode({ active: false, moduleId: undefined })}
+          userProgress={appState.userProgress}
+          onProgressUpdate={updateProgress}
+        />
+      );
+    }
+
     switch (appState.currentView) {
       case 'module':
         return (
@@ -164,7 +189,11 @@ const Index = () => {
             lessonId={appState.selectedLesson!}
             onBack={() => updateView('module', appState.selectedModule)}
             userProgress={appState.userProgress}
-            onProgressUpdate={updateProgress}
+            onProgressUpdate={(progress) => {
+              updateProgress(progress);
+              // Auto-retorna para módulo após completar lição
+              setTimeout(() => updateView('module', appState.selectedModule), 1000);
+            }}
           />
         );
       case 'profile':
@@ -190,6 +219,7 @@ const Index = () => {
           <Dashboard 
             onModuleSelect={(moduleId) => updateView('module', moduleId)}
             userProgress={appState.userProgress}
+            onPracticeMode={handlePracticeMode}
           />
         );
     }
