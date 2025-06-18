@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Play, CheckCircle, Lock, Trophy, Zap, User, Calendar } from 'lucide-react';
 import { UserProgress } from '../utils/storage';
@@ -52,6 +53,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <p className="text-secondary">
               Continue aprendendo sobre eletrônica para guitarra
             </p>
+            <p className="text-sm text-secondary mt-2">
+              <span className="font-semibold text-primary">{courseData.length} módulos</span> disponíveis para dominar
+            </p>
           </div>
           <div className="flex items-center space-x-4">
             <div className="text-center">
@@ -72,91 +76,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </div>
 
-      {/* Módulos Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {courseData.map((module) => {
-          const isUnlocked = isModuleUnlocked(module.id, userProgress);
-          const progress = calculateModuleProgress(module.id, userProgress);
-          const isCompleted = userProgress.completedModules.includes(module.id);
-          
-          return (
-            <div
-              key={module.id}
-              className={`glass-card rounded-2xl p-6 transition-all duration-300 ${
-                isUnlocked 
-                  ? 'cursor-pointer hover:shadow-xl hover:scale-105' 
-                  : 'opacity-60 cursor-not-allowed'
-              } ${isCompleted ? 'ring-2 ring-secondary/50' : ''}`}
-              onClick={() => isUnlocked && onModuleSelect(module.id)}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className={`p-3 rounded-xl ${
-                  isCompleted 
-                    ? 'bg-secondary text-white' 
-                    : isUnlocked 
-                      ? 'bg-secondary/10 text-secondary' 
-                      : 'bg-accent/20 text-accent'
-                }`}>
-                  {isCompleted ? (
-                    <CheckCircle className="w-6 h-6" />
-                  ) : isUnlocked ? (
-                    <Play className="w-6 h-6" />
-                  ) : (
-                    <Lock className="w-6 h-6" />
-                  )}
-                </div>
-                
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(module.difficulty)}`}>
-                  {getDifficultyText(module.difficulty)}
-                </span>
-              </div>
-              
-              <h3 className="text-lg font-bold text-primary mb-2">{module.title}</h3>
-              <p className="text-secondary text-sm mb-4 line-clamp-2">{module.description}</p>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-secondary">Progresso</span>
-                  <span className="font-medium text-primary">{Math.round(progress)}%</span>
-                </div>
-                
-                <div className="w-full h-2 bg-accent/30 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-secondary to-accent transition-all duration-500"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between text-xs text-secondary">
-                  <span>{module.lessons.length} lições</span>
-                  <span>{module.totalXP} XP</span>
-                </div>
-                
-                {isUnlocked && progress > 0 && onPracticeMode && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onPracticeMode(module.id);
-                    }}
-                    className="w-full mt-3 py-2 px-4 bg-accent/20 text-secondary rounded-lg hover:bg-accent/30 transition-colors text-sm font-medium"
-                  >
-                    🎯 Modo Prática
-                  </button>
-                )}
-              </div>
-              
-              {isCompleted && (
-                <div className="mt-4 flex items-center space-x-2 text-secondary">
-                  <Trophy className="w-4 h-4" />
-                  <span className="text-sm font-medium">Módulo Concluído!</span>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Progress Stats */}
+      {/* Progress Stats - Moved before modules */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="glass-card rounded-2xl p-6">
           <div className="flex items-center space-x-3 mb-4">
@@ -194,7 +114,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <div className="p-3 bg-secondary/10 rounded-xl">
               <Zap className="w-6 h-6 text-secondary" />
             </div>
-            <h3 className="text-lg font-semibold text-primary">Progresso</h3>
+            <h3 className="text-lg font-semibold text-primary">Progresso Geral</h3>
           </div>
           
           <div className="space-y-4">
@@ -286,6 +206,100 @@ export const Dashboard: React.FC<DashboardProps> = ({
               Faltam <span className="font-medium text-primary">{200 - (userProgress.xp % 200)} XP</span> para o próximo nível
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Módulos Section - Now shows ALL modules */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-primary">Todos os Módulos</h2>
+          <div className="text-sm text-secondary">
+            {userProgress.completedModules.length} de {courseData.length} concluídos
+          </div>
+        </div>
+        
+        {/* Módulos Grid - Shows ALL 20 modules */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {courseData.map((module) => {
+            const isUnlocked = isModuleUnlocked(module.id, userProgress);
+            const progress = calculateModuleProgress(module.id, userProgress);
+            const isCompleted = userProgress.completedModules.includes(module.id);
+            
+            return (
+              <div
+                key={module.id}
+                className={`glass-card rounded-xl p-4 transition-all duration-300 ${
+                  isUnlocked 
+                    ? 'cursor-pointer hover:shadow-lg hover:scale-105' 
+                    : 'opacity-60 cursor-not-allowed'
+                } ${isCompleted ? 'ring-2 ring-secondary/50' : ''}`}
+                onClick={() => isUnlocked && onModuleSelect(module.id)}
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div className={`p-2 rounded-lg ${
+                    isCompleted 
+                      ? 'bg-secondary text-white' 
+                      : isUnlocked 
+                        ? 'bg-secondary/10 text-secondary' 
+                        : 'bg-accent/20 text-accent'
+                  }`}>
+                    {isCompleted ? (
+                      <CheckCircle className="w-5 h-5" />
+                    ) : isUnlocked ? (
+                      <Play className="w-5 h-5" />
+                    ) : (
+                      <Lock className="w-5 h-5" />
+                    )}
+                  </div>
+                  
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(module.difficulty)}`}>
+                    {getDifficultyText(module.difficulty)}
+                  </span>
+                </div>
+                
+                <h3 className="text-base font-bold text-primary mb-2 line-clamp-2">{module.title}</h3>
+                <p className="text-secondary text-xs mb-3 line-clamp-2">{module.description}</p>
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-secondary">Progresso</span>
+                    <span className="font-medium text-primary">{Math.round(progress)}%</span>
+                  </div>
+                  
+                  <div className="w-full h-1.5 bg-accent/30 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-secondary to-accent transition-all duration-500"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                  
+                  <div className="flex items-center justify-between text-xs text-secondary">
+                    <span>{module.lessons.length} lições</span>
+                    <span>{module.totalXP} XP</span>
+                  </div>
+                  
+                  {isUnlocked && progress > 0 && onPracticeMode && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onPracticeMode(module.id);
+                      }}
+                      className="w-full mt-2 py-1.5 px-3 bg-accent/20 text-secondary rounded-md hover:bg-accent/30 transition-colors text-xs font-medium"
+                    >
+                      🎯 Prática
+                    </button>
+                  )}
+                </div>
+                
+                {isCompleted && (
+                  <div className="mt-3 flex items-center space-x-2 text-secondary">
+                    <Trophy className="w-3 h-3" />
+                    <span className="text-xs font-medium">Concluído!</span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
