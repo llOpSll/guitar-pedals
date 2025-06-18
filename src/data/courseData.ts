@@ -811,6 +811,402 @@ export const courseData = [
         ]
       }
     ]
+  },
+  {
+    id: 3,
+    title: "Filtros e Equalizadores",
+    description: "Domine filtros passivos e ativos para moldagem de som",
+    difficulty: "intermediate",
+    totalXP: 1400,
+    pedalProject: {
+      name: "EQ Gráfico 5 Bandas",
+      description: "Construa um equalizador gráfico profissional",
+      difficulty: "Intermediário"
+    },
+    lessons: [
+      {
+        id: 301,
+        title: "Teoria de Filtros",
+        description: "Fundamentos matemáticos dos filtros eletrônicos",
+        difficulty: "intermediate",
+        duration: "25 min",
+        xpReward: 80,
+        prerequisites: [],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Tipos de Filtros",
+            content: "Filtros são circuitos que permitem certas frequências passarem enquanto atenuam outras. Os tipos principais são: passa-baixa (corta agudos), passa-alta (corta graves), passa-faixa (permite uma faixa) e rejeita-faixa (bloqueia uma faixa)."
+          },
+          {
+            id: 2,
+            type: "exercise",
+            title: "Identificação de Filtros",
+            questions: [
+              {
+                id: 1,
+                type: "multiple-choice",
+                difficulty: "intermediate",
+                question: "Qual filtro é usado no controle de tom da guitarra?",
+                options: ["Passa-alta", "Passa-baixa", "Passa-faixa", "Rejeita-faixa"],
+                correctAnswer: 1,
+                explanation: "O controle de tom usa filtro passa-baixa para cortar frequências agudas."
+              },
+              {
+                id: 2,
+                type: "fill-blank",
+                difficulty: "intermediate",
+                question: "A frequência de corte é onde a amplitude cai ___dB.",
+                correctAnswer: "3",
+                explanation: "Por definição, frequência de corte é onde a amplitude cai 3dB (-3dB)."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 302,
+        title: "Filtros RC Passivos",
+        description: "Construção de filtros usando resistores e capacitores",
+        difficulty: "intermediate",
+        duration: "30 min",
+        xpReward: 90,
+        prerequisites: [301],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Filtro RC Passa-Baixa",
+            content: "O filtro RC passa-baixa mais simples usa um resistor em série seguido de um capacitor para o terra. A frequência de corte é fc = 1/(2πRC). Referência: https://www.electronics-tutorials.ws/filter/filter_2.html"
+          },
+          {
+            id: 2,
+            type: "circuit",
+            title: "Calculadora de Frequência de Corte",
+            circuitData: {
+              pedalName: "Filtro RC Básico",
+              description: "Filtro passa-baixa simples para controle de tom",
+              components: [
+                "Resistor variável 1kΩ-100kΩ",
+                "Capacitor 47nF",
+                "Capacitor 22nF",
+                "Capacitor 10nF"
+              ],
+              schematic: "https://www.electronics-tutorials.ws/wp-content/uploads/2018/05/filter-fil8.gif"
+            }
+          },
+          {
+            id: 3,
+            type: "exercise",
+            title: "Cálculos Práticos",
+            questions: [
+              {
+                id: 1,
+                type: "multiple-choice",
+                difficulty: "intermediate",
+                question: "Com R=10kΩ e C=47nF, qual a frequência de corte?",
+                options: ["159Hz", "338Hz", "1.59kHz", "3.38kHz"],
+                correctAnswer: 1,
+                explanation: "fc = 1/(2π × 10000 × 47×10⁻⁹) ≈ 338Hz"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 303,
+        title: "Filtros Ativos com Op-Amp",
+        description: "Filtros que amplificam além de filtrar",
+        difficulty: "intermediate",
+        duration: "35 min",
+        xpReward: 100,
+        prerequisites: [302],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Topologia Sallen-Key",
+            content: "Filtros ativos usando op-amps oferecem ganho e melhor isolamento. A topologia Sallen-Key é popular para filtros de 2ª ordem. Referência: https://www.ti.com/lit/an/sloa049b/sloa049b.pdf"
+          },
+          {
+            id: 2,
+            type: "exercise",
+            title: "Vantagens dos Filtros Ativos",
+            questions: [
+              {
+                id: 1,
+                type: "multiple-choice",
+                difficulty: "intermediate",
+                question: "Principal vantagem dos filtros ativos?",
+                options: ["Menor custo", "Ganho de tensão", "Menor consumo", "Menor ruído"],
+                correctAnswer: 1,
+                explanation: "Filtros ativos podem amplificar o sinal além de filtrar."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 304,
+        title: "EQ Paramétrico",
+        description: "Controle preciso de frequência, ganho e Q",
+        difficulty: "advanced",
+        duration: "40 min",
+        xpReward: 120,
+        prerequisites: [303],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Controles Paramétricos",
+            content: "EQ paramétrico permite ajustar frequência central, ganho e largura de banda (Q). Muito usado em mesas de som profissionais. Referência: https://sound.org/articles/parametric-eq.htm"
+          },
+          {
+            id: 2,
+            type: "circuit",
+            title: "Circuito EQ Paramétrico",
+            circuitData: {
+              pedalName: "EQ Paramétrico Simples",
+              description: "EQ com controle de frequência, ganho e Q",
+              components: [
+                "TL072 Dual Op-amp",
+                "Potenciômetro 10kΩ (Frequency)",
+                "Potenciômetro 10kΩ (Gain)",
+                "Potenciômetro 10kΩ (Q)",
+                "Capacitor variável 470pF-4.7nF",
+                "Resistores diversos"
+              ],
+              schematic: "https://www.sound.org/project56.htm"
+            }
+          }
+        ]
+      },
+      {
+        id: 305,
+        title: "Wah-Wah: Filtro Variável",
+        description: "Como funciona o pedal wah-wah",
+        difficulty: "intermediate",
+        duration: "30 min",
+        xpReward: 95,
+        prerequisites: [304],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Princípio do Wah",
+            content: "O wah-wah é um filtro passa-faixa com frequência central controlada por pedal. Usa um indutor e capacitor variável para criar o efeito característico. Referência: https://www.electrosmash.com/cry-baby-gcb-95-analysis"
+          },
+          {
+            id: 2,
+            type: "exercise",
+            title: "Componentes do Wah",
+            questions: [
+              {
+                id: 1,
+                type: "multiple-choice",
+                difficulty: "intermediate",
+                question: "Que componente varia no wah-wah clássico?",
+                options: ["Resistor", "Capacitor", "Indutor", "Potenciômetro"],
+                correctAnswer: 3,
+                explanation: "O potenciômetro controlado pelo pedal varia a frequência central."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 306,
+        title: "Crossover de Frequências",
+        description: "Divisão de sinais por faixas de frequência",
+        difficulty: "advanced",
+        duration: "35 min",
+        xpReward: 110,
+        prerequisites: [305],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Crossover Ativo vs Passivo",
+            content: "Crossovers dividem o sinal em diferentes faixas de frequência. Usado em caixas de som para separar graves, médios e agudos. Ativos usam op-amps, passivos apenas LC."
+          },
+          {
+            id: 2,
+            type: "circuit",
+            title: "Crossover 2 Vias",
+            circuitData: {
+              pedalName: "Crossover Ativo",
+              description: "Divisor de frequências para bi-amplificação",
+              components: [
+                "TL074 Quad Op-amp",
+                "Capacitores: 47nF, 22nF, 10nF",
+                "Resistores: 10kΩ, 22kΩ, 47kΩ",
+                "Potenciômetros de ajuste"
+              ],
+              schematic: "https://sound.org/project09.htm"
+            }
+          }
+        ]
+      },
+      {
+        id: 307,
+        title: "Filtros Digitais vs Analógicos",
+        description: "Comparação entre tecnologias",
+        difficulty: "advanced",
+        duration: "25 min",
+        xpReward: 85,
+        prerequisites: [306],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Vantagens e Desvantagens",
+            content: "Filtros digitais oferecem precisão e flexibilidade, mas introduzem latência. Analógicos têm resposta instantânea mas são menos precisos. Ambos têm seu lugar na música."
+          },
+          {
+            id: 2,
+            type: "exercise",
+            title: "Características dos Filtros",
+            questions: [
+              {
+                id: 1,
+                type: "true-false",
+                difficulty: "advanced",
+                question: "Filtros digitais sempre têm latência zero.",
+                correctAnswer: "false",
+                explanation: "Filtros digitais sempre têm alguma latência devido ao processamento."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 308,
+        title: "Simulação de Amplificadores",
+        description: "Filtros que imitam resposta de amplificadores",
+        difficulty: "advanced",
+        duration: "40 min",
+        xpReward: 125,
+        prerequisites: [307],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Modelagem de Amplificadores",
+            content: "Simuladores usam filtros complexos para imitar a resposta em frequência de amplificadores clássicos. Combinam EQ, compressão e distorção harmônica."
+          },
+          {
+            id: 2,
+            type: "circuit",
+            title: "Simulador Marshall Stack",
+            circuitData: {
+              pedalName: "Marshall Sim",
+              description: "Simulação da resposta de um Marshall Stack",
+              components: [
+                "TL072 Op-amp",
+                "Filtros passa-alta 80Hz",
+                "Filtro passa-baixa 5kHz",
+                "Boost em 2.5kHz",
+                "Capacitores e resistores diversos"
+              ],
+              schematic: "https://www.runoffgroove.com/tonemender.html"
+            }
+          }
+        ]
+      },
+      {
+        id: 309,
+        title: "Auto-Wah e Envelope Follower",
+        description: "Filtros controlados por dinâmica do sinal",
+        difficulty: "advanced",
+        duration: "35 min",
+        xpReward: 115,
+        prerequisites: [308],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Envelope Follower",
+            content: "Auto-wah usa envelope follower para detectar amplitude do sinal e controlar filtro automaticamente. Mais forte você toca, mais agudo fica o filtro."
+          },
+          {
+            id: 2,
+            type: "exercise",
+            title: "Funcionamento do Auto-Wah",
+            questions: [
+              {
+                id: 1,
+                type: "multiple-choice",
+                difficulty: "advanced",
+                question: "O que controla o filtro no auto-wah?",
+                options: ["Frequency", "Amplitude", "Phase", "Harmônicos"],
+                correctAnswer: 1,
+                explanation: "A amplitude (envelope) do sinal controla a frequência do filtro."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 310,
+        title: "Projeto: EQ Gráfico 5 Bandas",
+        description: "Construa um equalizador gráfico profissional",
+        difficulty: "advanced",
+        duration: "90 min",
+        xpReward: 180,
+        prerequisites: [309],
+        steps: [
+          {
+            id: 1,
+            type: "theory",
+            title: "Especificações do EQ",
+            content: "EQ gráfico com 5 bandas: 100Hz, 300Hz, 1kHz, 3kHz, 10kHz. Cada banda com ±15dB de ajuste. Buffer de entrada e saída para isolamento."
+          },
+          {
+            id: 2,
+            type: "circuit",
+            title: "Esquemático Completo do EQ",
+            circuitData: {
+              pedalName: "EQ Gráfico 5 Bandas",
+              description: "Equalizador gráfico profissional para guitarra",
+              components: [
+                "TL074 Quad Op-amp (2x)",
+                "Potenciômetros deslizantes 10kΩ (5x)",
+                "Capacitores: 1µF, 330nF, 100nF, 33nF, 10nF",
+                "Resistores: 10kΩ, 22kΩ, 47kΩ, 100kΩ",
+                "Chave bypass",
+                "LED indicador"
+              ],
+              schematic: "https://sound.org/project28.htm"
+            }
+          },
+          {
+            id: 3,
+            type: "exercise",
+            title: "Teste Final - EQ Avançado",
+            questions: [
+              {
+                id: 1,
+                type: "multiple-choice",
+                difficulty: "advanced",
+                question: "Por que usar buffer de saída no EQ?",
+                options: ["Amplificar sinal", "Isolar carga", "Reduzir ruído", "Economizar energia"],
+                correctAnswer: 1,
+                explanation: "Buffer de saída isola o EQ da impedância de entrada do próximo equipamento."
+              },
+              {
+                id: 2,
+                type: "fill-blank",
+                difficulty: "advanced",
+                question: "EQ gráfico de boa qualidade deve ter range dinâmico mínimo de ___dB.",
+                correctAnswer: "100",
+                explanation: "Range dinâmico mínimo de 100dB garante qualidade profissional."
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ];
 
@@ -873,6 +1269,10 @@ export const checkAdvancedAchievements = (userProgress: any) => {
   
   if (userProgress.xp >= 10000 && !achievements.includes('xp-10k')) {
     achievements.push('xp-10k');
+  }
+  
+  if (userProgress.xp >= 20000 && !achievements.includes('xp-20k')) {
+    achievements.push('xp-20k');
   }
   
   return achievements;
